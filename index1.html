@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Treinamento OMASP 2026 — Guia de Aplicação Fase 3 | URE Caieiras</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ========== IDENTIDADE VISUAL (URE Caieiras) ========== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root{
+  --azul:#0a2f6c;
+  --azul-escuro:#041a3a;
+  --navy:#0f1a24;
+  --vermelho:#d32f2f;
+  --dourado:#ffec9e;
+  --laranja:#ffb347;
+  --ok:#16a34a;
+  --bad:#dc2626;
+  --teal:#1fb6c9;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(145deg, #0a2f6c 0%, #041a3a 100%);
+  min-height: 100vh;
+  padding: 20px;
+  color: #1e293b;
+}
+
+.main-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #0f1a24;
+  border-radius: 48px;
+  padding: 20px;
+  box-shadow: 0 30px 35px rgba(0,0,0,0.5), inset 0 1px 4px rgba(255,255,200,0.1);
+  border: 1px solid #d32f2f;
+}
+
+/* ---------- CABEÇALHO ---------- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10, 47, 108, 0.85);
+  backdrop-filter: blur(4px);
+  padding: 12px 24px;
+  border-radius: 60px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.logo-area { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.logo-area img {
+  height: 55px; width:auto; border-radius:12px; background:white; padding:4px; object-fit:contain;
+}
+.logo-text { font-size: 1rem; font-weight:600; color:#ffec9e; line-height:1.3; }
+.logo-text small{ display:block; font-weight:500; color:#cbd5e6; font-size:.72rem; letter-spacing:.03em; }
+.title-badge {
+  background:#d32f2f; color:white; padding:6px 18px; border-radius:3rem; font-weight:bold;
+  letter-spacing:1px; font-size:.75rem; white-space:nowrap;
+}
+
+/* ---------- HERO ---------- */
+.hero-card{
+  background:#0a2f6c; color:white; border-radius:32px; padding:1.6rem 1.6rem 1.4rem;
+  margin-bottom:1.4rem; border-left:4px solid #d32f2f; position:relative; overflow:hidden;
+}
+.hero-card::after{
+  content:""; position:absolute; top:-40px; right:-40px; width:160px; height:160px; border-radius:50%;
+  background:conic-gradient(from 200deg,var(--vermelho),var(--laranja),var(--dourado),var(--teal),var(--vermelho));
+  opacity:.28; filter:blur(2px);
+}
+.section-eyebrow{
+  font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#ffb347; margin-bottom:.5rem;
+  position:relative; z-index:1;
+}
+.hero-card h1{ font-family:'Inter',sans-serif; font-weight:800; font-size:1.5rem; line-height:1.25; color:white; margin-bottom:8px; position:relative; z-index:1;}
+.hero-card h1 span{ color:#ffb347; }
+.hero-card p{ color:#cbd5e6; font-size:.85rem; max-width:520px; position:relative; z-index:1;}
+.hero-stats{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; position:relative; z-index:1;}
+.hstat{ background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); border-radius:16px; padding:9px 13px; min-width:100px;}
+.hstat b{ display:block; font-size:1.15rem; font-weight:800;}
+.hstat span{ font-size:.65rem; color:#cbd5e6; text-transform:uppercase; letter-spacing:.05em;}
+
+/* ---------- PROGRESSO ---------- */
+.nav-links{
+  display:flex; align-items:center; gap:12px; background:rgba(10,47,108,.85); border-radius:60px;
+  padding:10px 20px; margin-bottom:24px; flex-wrap:wrap;
+}
+.progress-label{ font-size:.75rem; font-weight:700; color:#cbd5e6; white-space:nowrap;}
+.progress-track{ flex:1; min-width:100px; height:8px; background:rgba(255,255,255,.12); border-radius:20px; overflow:hidden;}
+.progress-fill{ height:100%; width:0%; background:linear-gradient(90deg,#d32f2f,#ffb347); transition:width .4s ease;}
+.xp-pill{
+  background:rgba(255,236,158,.15); border:1px solid rgba(255,236,158,.4); color:#ffec9e;
+  font-size:.7rem; font-weight:700; padding:5px 12px; border-radius:20px; white-space:nowrap;
+}
+
+/* ---------- CARDS PADRÃO ---------- */
+.card {
+  background: white; border-radius: 32px; padding: 1.6rem; margin-bottom: 1.4rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2); border: 1px solid #e0e4e9; animation:fadeIn .35s ease;
+}
+@keyframes fadeIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+.card-header {
+  font-weight: 800; font-size: .78rem; text-transform:uppercase; letter-spacing:.04em; color: #003b66;
+  border-left: 4px solid #ffb347; padding-left: 12px; margin-bottom: 8px;
+}
+.card-header.red{ border-left-color:#d32f2f; color:#b91c1c;}
+.qtype{ font-size:.7rem; color:#64748b; font-weight:600; text-transform:uppercase; letter-spacing:.05em; margin-bottom:10px;}
+.qtext{ font-size:1.15rem; font-weight:800; line-height:1.4; color:#0a2f6c; margin-bottom:18px;}
+
+/* ---------- OPÇÕES (mc / tf / msel) ---------- */
+.option{
+  display:flex; align-items:center; gap:12px; background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:20px;
+  padding:13px 16px; margin-bottom:9px; cursor:pointer; font-size:.92rem; color:#1e293b; transition:.15s;
+}
+.option:hover{ border-color:#0a2f6c; }
+.option.selected{ border-color:#d32f2f; background:#fff0f0;}
+.option.correct{ border-color:var(--ok); background:#e6f7ef;}
+.option.incorrect{ border-color:var(--bad); background:#fdeceb;}
+.option .dot{ width:20px; height:20px; border-radius:50%; border:2px solid #cbd5e1; flex:0 0 auto;}
+.option.selected .dot{ border-color:#d32f2f; background:#d32f2f;}
+.option.correct .dot{ border-color:var(--ok); background:var(--ok);}
+.option.incorrect .dot{ border-color:var(--bad); background:var(--bad);}
+.option.msel .dot{ border-radius:6px;}
+
+/* ---------- FILL ---------- */
+.fill-row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+input[type=text]{
+  flex:1; min-width:200px; background:#f8fafc; border:1.5px solid #e2e8f0; color:#1e293b;
+  padding:13px 16px; border-radius:20px; font-size:.92rem; font-family:inherit;
+}
+input[type=text]:focus{ outline:none; border-color:#0a2f6c;}
+
+/* ---------- ORDER ---------- */
+.order-list{ list-style:none;}
+.order-item{
+  display:flex; align-items:center; gap:12px; background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:20px;
+  padding:12px 16px; margin-bottom:8px; cursor:pointer; font-size:.88rem; color:#1e293b; user-select:none;
+}
+.order-item .badge{
+  width:26px; height:26px; border-radius:50%; background:white; border:1.5px solid #cbd5e1;
+  display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:800; flex:0 0 auto; color:#0a2f6c;
+}
+.order-item.picked .badge{ background:#d32f2f; border-color:#d32f2f; color:white;}
+.order-item.locked{ opacity:.6; cursor:default;}
+.order-item.correct{ border-color:var(--ok);}
+.order-item.incorrect{ border-color:var(--bad);}
+.hint-txt{ font-size:.72rem; color:#64748b; margin-top:6px;}
+
+/* ---------- MATCH ---------- */
+.match-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.match-col{ display:flex; flex-direction:column; gap:8px;}
+.match-item{
+  background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:16px; padding:11px 13px;
+  font-size:.78rem; color:#1e293b; cursor:pointer; line-height:1.35;
+}
+.match-item.selected{ border-color:#0a2f6c; background:#eef2ff;}
+.match-item.paired{ border-color:var(--ok); background:#e6f7ef; cursor:default;}
+.match-item.wrong-flash{ border-color:var(--bad); background:#fdeceb;}
+@media (max-width:560px){ .match-grid{ grid-template-columns:1fr;} }
+
+/* ---------- BOTÕES ---------- */
+.actions{ display:flex; gap:10px; margin-top:18px; flex-wrap:wrap;}
+button{ font-family:inherit; font-weight:700; font-size:.85rem; border:none; border-radius:40px; padding:12px 22px; cursor:pointer; transition:.15s;}
+.btn-primary{ background:linear-gradient(135deg,#0a2f6c,#052050); color:white;}
+.btn-primary:hover{ background:#d32f2f;}
+.btn-primary:disabled{ opacity:.4; cursor:not-allowed; background:#94a3b8;}
+.btn-ghost{ background:#e2e8f0; color:#334155;}
+.btn-ghost:hover{ background:#cbd5e1;}
+
+/* ---------- FEEDBACK ---------- */
+.feedback{ margin-top:16px; padding:14px 16px; border-radius:20px; font-size:.85rem; line-height:1.55; display:none;}
+.feedback.show{ display:block; animation:fadeIn .3s ease;}
+.feedback.ok{ background:#e6f7ef; border:1px solid #86e0ae; color:#065f2f;}
+.feedback.bad{ background:#fdeceb; border:1px solid #f5a9a3; color:#7f1d1d;}
+.feedback b{ display:block; margin-bottom:4px; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em;}
+
+/* ---------- TELAS START/END ---------- */
+.screen-card{ background:white; border-radius:32px; padding:2.2rem 1.6rem; text-align:center; box-shadow:0 8px 20px rgba(0,0,0,0.2); border:1px solid #e0e4e9;}
+.screen-card h2{ font-size:1.5rem; font-weight:800; color:#0a2f6c; margin:6px 0 10px;}
+.screen-card p{ color:#475569; font-size:.9rem; max-width:480px; margin:0 auto 20px; line-height:1.6;}
+.flame{ font-size:40px; margin-bottom:4px;}
+.module-preview{ display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin:20px 0; text-align:left;}
+.mp-item{ background:#f8fafc; border:1px solid #e2e8f0; border-radius:20px; padding:12px 14px;}
+.mp-item .n{ color:#d32f2f; font-size:.68rem; font-weight:800;}
+.mp-item .t{ font-size:.8rem; font-weight:700; margin-top:3px; color:#0a2f6c;}
+
+.score-ring{
+  width:150px; height:150px; border-radius:50%;
+  background:conic-gradient(#d32f2f calc(var(--pct,0)*1%), #e2e8f0 0);
+  display:flex; align-items:center; justify-content:center; margin:14px auto 20px; position:relative;
+}
+.score-ring::before{ content:""; position:absolute; width:118px; height:118px; border-radius:50%; background:white;}
+.score-ring .val{ position:relative; z-index:1; font-size:1.7rem; font-weight:800; color:#0a2f6c;}
+
+.breakdown{ text-align:left; margin:18px 0;}
+.bd-row{ display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid #e2e8f0; font-size:.85rem; color:#334155;}
+.bd-row:last-child{ border-bottom:none;}
+.bd-row b{ color:#0a2f6c;}
+
+.resources{ text-align:left; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:24px; padding:16px 18px; margin-top:20px;}
+.resources h3{ margin:0 0 10px; font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:#d32f2f;}
+.resources a{
+  display:flex; align-items:center; gap:8px; color:#0a2f6c; text-decoration:none; font-size:.83rem;
+  padding:9px 0; border-bottom:1px solid #e2e8f0; font-weight:600;
+}
+.resources a:last-child{ border-bottom:none;}
+.resources a:hover{ color:#d32f2f;}
+
+footer{ text-align:center; color:#b4c8e0; font-size:.72rem; margin-top:1.6rem; padding:1rem; border-top:1px solid #2c4c6e; line-height:1.7;}
+.hidden{ display:none !important;}
+
+@media print{
+  body{ background:white; padding:0;}
+  .main-container{ background:white; box-shadow:none; border:none;}
+  .header{ background:#0a2f6c; -webkit-print-color-adjust:exact;}
+  .nav-links{ display:none;}
+}
+</style>
+</head>
+<body>
+<div class="main-container">
+
+  <!-- CABEÇALHO IDENTIDADE -->
+  <div class="header">
+    <div class="logo-area">
+      <img src="https://i.ibb.co/0p01LzxB/logo3de.jpg" alt="Logo SEDUC SP">
+      <div class="logo-text">URE CAIEIRAS — Seduc SP<small>Programa de Olimpíadas Educacionais</small></div>
+    </div>
+    <div class="title-badge">OMASP 2026 · FASE 3</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero-card">
+    <div class="section-eyebrow">Guia de Aplicação de Prova</div>
+    <h1>Treinamento OMASP 2026<br><span>Fase 3 — Etapa Estadual</span></h1>
+    <p>20 atividades interativas para preparar dirigentes, PECs, professores e fiscais para a aplicação nos Polos Olímpicos.</p>
+    <div class="hero-stats">
+      <div class="hstat"><b>06/08</b><span>Data da prova</span></div>
+      <div class="hstat"><b>09h–11h</b><span>Janela única</span></div>
+      <div class="hstat"><b>20</b><span>Questões · até 2h</span></div>
+      <div class="hstat"><b>280</b><span>Classificados URE Caieiras</span></div>
+    </div>
+  </div>
+
+  <div class="nav-links" id="progressShell">
+    <span class="progress-label" id="progressLabel">Questão 0/20</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="xp-pill" id="xpPill">0 XP</span>
+  </div>
+
+  <!-- START SCREEN -->
+  <div class="screen-card" id="startScreen">
+    <div class="flame">🔥</div>
+    <h2>Pronto para dominar a Fase 3?</h2>
+    <p>Este treinamento cobre logística de aplicação, papel dos fiscais, resolução de problemas técnicos, Diário de Classe/Enturmação e geração de Token — tudo com base no Guia Oficial OMASP 2026.</p>
+    <div class="module-preview">
+      <div class="mp-item"><div class="n">MÓDULO 1</div><div class="t">Preparação e Logística</div></div>
+      <div class="mp-item"><div class="n">MÓDULO 2</div><div class="t">Fiscais de Prova</div></div>
+      <div class="mp-item"><div class="n">MÓDULO 3</div><div class="t">Problemas Técnicos</div></div>
+      <div class="mp-item"><div class="n">MÓDULO 4</div><div class="t">Diário de Classe</div></div>
+      <div class="mp-item"><div class="n">MÓDULO 5</div><div class="t">Alunos Transferidos</div></div>
+      <div class="mp-item"><div class="n">MÓDULO 6</div><div class="t">Token em Lote</div></div>
+    </div>
+    <button class="btn-primary" onclick="startQuiz()">Iniciar treinamento →</button>
+  </div>
+
+  <!-- QUIZ CONTAINER -->
+  <div id="quizArea" class="hidden"></div>
+
+  <!-- END SCREEN -->
+  <div class="screen-card hidden" id="endScreen">
+    <div class="flame">🏅</div>
+    <h2>Boas provas!</h2>
+    <div class="score-ring" id="scoreRing"><div class="val" id="scoreVal">0%</div></div>
+    <p id="endMsg">Confira seu desempenho por módulo abaixo.</p>
+    <div class="breakdown" id="breakdown"></div>
+    <div class="actions" style="justify-content:center;">
+      <button class="btn-primary" onclick="restartQuiz()">Refazer treinamento</button>
+    </div>
+    <div class="resources">
+      <h3>Materiais oficiais de apoio</h3>
+      <a href="https://drive.google.com/file/d/17KUhCY_b6TP5jK84t_DCgCl3Fh2PO3CT/view?usp=sharing" target="_blank" rel="noopener">🎬 Vídeo orientador — Diário de Classe e Enturmação</a>
+      <a href="https://docs.google.com/presentation/d/1w39Cr_TPbeVRK3nb5z8uKiKYeaGMRezo/edit?usp=sharing&ouid=102283462481223018992&rtpof=true&sd=true" target="_blank" rel="noopener">📑 Passo a passo — Como gerar um Token em lote</a>
+    </div>
+  </div>
+
+  <footer>
+    Programa de Olimpíadas Educacionais SEDUC-SP · Unidade Regional de Ensino Caieiras<br>
+    Conteúdo baseado no "Guia de Aplicação de Prova — OMASP 2026" (Fase 3 Estadual)
+  </footer>
+</div>
+
+<script>
+/* ===================== DATA ===================== */
+const QUESTIONS = [
+  {
+    module:"Módulo 1 · Preparação e Logística", type:"mc",
+    q:"De acordo com o cronograma oficial, quando e onde acontece a Fase Estadual da OMASP 2026 (níveis 1, 2 e 3)?",
+    options:[
+      "06/08, às 9h, no Polo de Aplicação da URE",
+      "06/08, às 14h, na própria escola",
+      "13/08, às 9h, no Polo de Aplicação da URE",
+      "06/08, às 9h, na Secretaria Escolar Digital"
+    ],
+    correct:0,
+    explain:"A prova estadual (todos os níveis) ocorre em 06/08, às 9h, no Polo de Aplicação definido pela URE."
+  },
+  {
+    module:"Módulo 1 · Preparação e Logística", type:"tf",
+    q:"O tempo recomendado para a realização da prova da Fase 3 é de até 2 horas.",
+    correct:true,
+    explain:"Correto — o Guia recomenda até 2 horas de duração para a aplicação."
+  },
+  {
+    module:"Módulo 1 · Preparação e Logística", type:"fill",
+    q:"Complete: \"Uma aplicação em ___ significa que todos os alunos de uma mesma região irão realizar suas avaliações em um mesmo local.\"",
+    accept:["polo","polo olímpico","um polo"],
+    explain:"O modelo é de aplicação em POLO — todos os alunos da região se reúnem em um único local, como no ENEM."
+  },
+  {
+    module:"Módulo 1 · Preparação e Logística", type:"mc",
+    q:"O modelo de aplicação em polo olímpico da Fase 3 é semelhante ao formato de qual outra avaliação/etapa?",
+    options:[
+      "SARESP aplicado remotamente",
+      "ENEM ou Fase 2 da OBMEP",
+      "Prova Paulista Classificatória",
+      "Avaliação Diagnóstica Adaptativa"
+    ],
+    correct:1,
+    explain:"O Guia compara o modelo de polo ao ENEM e à Fase 2 da OBMEP, onde estudantes de uma região vão a um mesmo local aplicar a prova."
+  },
+  {
+    module:"Módulo 2 · Fiscais de Prova", type:"mc",
+    q:"Quem é o perfil recomendado para atuar como fiscal de prova na aplicação da OMASP?",
+    options:[
+      "Qualquer voluntário da comunidade",
+      "Membros do corpo docente ou do trio gestor",
+      "Somente supervisores de ensino",
+      "Estudantes do Ensino Médio da própria escola"
+    ],
+    correct:1,
+    explain:"O Guia aconselha que os fiscais sejam membros do corpo docente ou do trio gestor da escola."
+  },
+  {
+    module:"Módulo 2 · Fiscais de Prova", type:"msel",
+    q:"Selecione TODAS as características do perfil recomendado para o aplicador de prova:",
+    options:[
+      "Atenção aos detalhes",
+      "Imparcialidade caso haja qualquer eventualidade",
+      "Ser especialista em Matemática",
+      "Pontualidade",
+      "Senso de responsabilidade",
+      "Boa comunicação"
+    ],
+    correctSet:[0,1,3,4,5],
+    explain:"O perfil recomendado inclui atenção aos detalhes, imparcialidade, pontualidade, senso de responsabilidade e boa comunicação. Ser especialista em Matemática não é um critério — pelo contrário, professores de Matemática são desaconselhados como fiscais."
+  },
+  {
+    module:"Módulo 2 · Fiscais de Prova", type:"tf",
+    q:"O Guia desaconselha que professores de Matemática atuem como fiscais de prova da OMASP.",
+    correct:true,
+    explain:"Correto — para preservar a imparcialidade, professores de Matemática são desaconselhados como fiscais/aplicadores."
+  },
+  {
+    module:"Módulo 2 · Fiscais de Prova", type:"mc",
+    q:"Qual é o horário ÚNICO em que a prova da Fase 3 fica aberta?",
+    options:["8h às 10h","9h às 11h","9h às 12h","10h às 12h"],
+    correct:1,
+    explain:"A prova só estará aberta das 9h às 11h. Qualquer tentativa de acesso fora desse período não será bem-sucedida."
+  },
+  {
+    module:"Módulo 3 · Boas Práticas e Ocorrências", type:"order",
+    q:"Um estudante tentou colar durante a prova. Ordene corretamente o protocolo do fiscal, do primeiro passo ao último:",
+    items:[
+      "Alertar o estudante no momento em que a tentativa de cola foi percebida",
+      "Confirmar a irregularidade e desclassificar o estudante",
+      "Marcar ausência para o estudante no Diário de Classe",
+      "Informar o ponto focal de Olimpíadas da Unidade Regional de Ensino"
+    ],
+    correctOrder:[0,1,2,3],
+    explain:"O protocolo é: alertar no momento → confirmar e desclassificar → marcar ausência no Diário de Classe → informar o ponto focal da URE."
+  },
+  {
+    module:"Módulo 3 · Boas Práticas e Ocorrências", type:"mc",
+    q:"O que o fiscal deve fazer se houver imprevisto durante a aplicação, como queda de energia ou de internet?",
+    options:[
+      "Cancelar a prova da turma imediatamente",
+      "Aumentar o tempo de prova para compensar o imprevisto",
+      "Ignorar, pois não há solução prevista",
+      "Transferir a responsabilidade para a Secretaria Escolar Digital"
+    ],
+    correct:1,
+    explain:"O Guia orienta aumentar o tempo de prova caso haja qualquer imprevisto (queda de energia ou de internet, por exemplo)."
+  },
+  {
+    module:"Módulo 3 · Problemas Técnicos", type:"order",
+    q:"Um estudante está sem avaliação disponível na Sala do Futuro. Ordene as verificações recomendadas pelo Guia, na sequência sugerida:",
+    items:[
+      "Verificar se o login foi digitado corretamente e se é o login correto do estudante",
+      "Verificar se a data e a hora do computador estão atualizadas",
+      "Esvaziar o cache do navegador ou utilizar a guia anônima"
+    ],
+    correctOrder:[0,1,2],
+    explain:"Sequência recomendada: 1) checar login, 2) checar data/hora do computador, 3) esvaziar cache ou usar guia anônima."
+  },
+  {
+    module:"Módulo 3 · Problemas Técnicos", type:"mc",
+    q:"Por que a prova pode não abrir mesmo com login correto e internet funcionando?",
+    options:[
+      "Porque o estudante não é medalhista de prata",
+      "Porque a data e a hora do computador estão diferentes do horário real",
+      "Porque o navegador está atualizado",
+      "Porque o estudante está em turma multisseriada"
+    ],
+    correct:1,
+    explain:"A prova não abre se a data e a hora do computador estiverem diferentes do real. Nesses casos, sugere-se trocar o computador."
+  },
+  {
+    module:"Módulo 3 · Problemas Técnicos", type:"order",
+    q:"A escola está sem internet ou energia no horário da aplicação. Ordene as ações do Guia da mais recomendada até a última alternativa (uso emergencial de celular):",
+    items:[
+      "Verificar disponibilidade de tablets com chip na escola, na URE ou em escola vizinha",
+      "Usar celulares emergencialmente (única exceção permitida ao uso de celular)",
+      "Verificar a possibilidade de deslocar os estudantes para uma escola vizinha"
+    ],
+    correctOrder:[0,1,2],
+    explain:"Ordem do Guia: 1) tablets com chip; 2) celular apenas em último caso, como exceção expressa; 3) deslocar estudantes para escola vizinha."
+  },
+  {
+    module:"Módulo 3 · Boas Práticas na Aplicação", type:"match",
+    q:"Relacione cada boa prática de aplicação à sua descrição correta:",
+    left:["Inclusão","Orientações pertinentes","Conferir finalização da prova","Checagem de navegador"],
+    right:[
+      "Permitir tempo estendido e suporte a estudantes da educação especial",
+      "Orientar a “Salvar Rascunho” durante a prova para evitar perda de dados",
+      "Verificar se cada estudante apertou o botão “finalizar prova”",
+      "Conferir se o estudante está apenas com a aba da prova aberta no navegador"
+    ],
+    explain:"Inclusão = tempo estendido/apoio; Orientações pertinentes = salvar rascunho; Conferir finalização = botão finalizar; Checagem de navegador = uma única aba aberta."
+  },
+  {
+    module:"Módulo 3 · Problemas Técnicos", type:"tf",
+    q:"O uso de celular pelos estudantes durante a prova é expressamente proibido, salvo a exceção de falta de internet/energia sem alternativa.",
+    correct:true,
+    explain:"Correto — o Guia é enfático: o uso do celular é expressamente proibido, salvo essa exceção emergencial."
+  },
+  {
+    module:"Módulo 4 · Diário de Classe e Enturmação", type:"fill",
+    q:"Complete o caminho na SED usado pela escola: Início → Diário de Classe → Olimpíadas → ___",
+    accept:["enturmação e frequência","enturmação","enturmação e frequencia"],
+    explain:"O caminho correto na SED é: Início → Diário de Classe → Olimpíadas → Enturmação e Frequência."
+  },
+  {
+    module:"Módulo 4 · Diário de Classe e Enturmação", type:"mc",
+    q:"Sobre a geração de Token na Fase 3, o que é necessário saber?",
+    options:[
+      "O Token é gerado por Município, nunca por URE",
+      "O Token é gerado pela URE, e é preciso selecionar a opção “Fase 3” para ver a enturmação",
+      "Cada estudante gera seu próprio Token individualmente",
+      "O Token não está vinculado a nenhuma turma específica"
+    ],
+    correct:1,
+    explain:"O Token é gerado por URE (não por Município ou Escola). É necessário selecionar “Fase 3” para visualizar a enturmação, e cada turma tem uma lista única de estudantes vinculada ao mesmo token."
+  },
+  {
+    module:"Módulo 5 · Alunos Transferidos", type:"mc",
+    q:"Um estudante veio transferido de outra escola e está apto a fazer a prova na sua turma, mas a enturmação já foi feita na escola de origem. O que fazer?",
+    options:[
+      "Gerar um novo login para o estudante na SED",
+      "Comunicar a escola de origem para que informem o token de acesso no momento da prova",
+      "Aguardar a próxima edição da OMASP",
+      "Aplicar a prova impressa como substituta"
+    ],
+    correct:1,
+    explain:"É preciso comunicar a escola antiga para que o trio gestor, PROATI ou um professor informe o token de acesso — sem isso, o estudante não conseguirá abrir a prova na Sala do Futuro."
+  },
+  {
+    module:"Módulo 5 · Alunos Transferidos", type:"tf",
+    q:"O estudante transferido pode realizar a prova em qualquer data ou turno, conforme a conveniência da escola atual.",
+    correct:false,
+    explain:"Falso — o estudante só poderá realizar a prova na data e turno programados. Por isso o contato com a escola de origem deve ser feito o mais rápido possível."
+  },
+  {
+    module:"Módulo 6 · Token em Lote", type:"mc",
+    q:"Na Fase 3, como o token de aplicação deve ser gerado pela URE?",
+    options:[
+      "Um token diferente para cada estudante",
+      "Um mesmo token de aplicação gerado em lote para todas as turmas",
+      "Um token gerado apenas pelo professor de Matemática",
+      "Não é necessário gerar token na Fase 3"
+    ],
+    correct:1,
+    explain:"Na Fase 3, o token é gerado em lote pelas UREs: a URE deve gerar um mesmo token de aplicação para todas as turmas."
+  },
+  {
+    module:"Módulo 6 · Token em Lote", type:"tf",
+    q:"O token gerado em lote tem duração de 15 minutos.",
+    correct:true,
+    explain:"Correto — o token dura 15 minutos. Se um estudante chegar atrasado e o token já tiver expirado, um novo token deve ser gerado."
+  },
+  {
+    module:"Módulo 6 · Token em Lote", type:"msel",
+    q:"Selecione TODOS os cuidados recomendados ao gerar o token em lote:",
+    options:[
+      "Gerar um novo token se o primeiro já tiver expirado para atrasados",
+      "Deixar o token visível apenas para o fiscal, escondido dos estudantes",
+      "Seguir as instruções para que o token esteja visível para todos",
+      "Evitar que várias pessoas gerem o mesmo token ao mesmo tempo",
+      "Compartilhar o token nas redes sociais da escola"
+    ],
+    correctSet:[0,2,3],
+    explain:"Cuidados corretos: gerar novo token quando expirar para atrasados; manter o token visível para todos os estudantes; evitar que várias pessoas gerem o token simultaneamente. O token não deve ser escondido dos estudantes nem divulgado publicamente fora do contexto da prova."
+  }
+];
+
+/* ===================== STATE ===================== */
+let current = 0;
+let answered = new Array(QUESTIONS.length).fill(false);
+let correctFlags = new Array(QUESTIONS.length).fill(false);
+let xp = 0;
+const XP_PER_Q = 5;
+
+const quizArea = document.getElementById('quizArea');
+const startScreen = document.getElementById('startScreen');
+const endScreen = document.getElementById('endScreen');
+const progressFill = document.getElementById('progressFill');
+const progressLabel = document.getElementById('progressLabel');
+const xpPill = document.getElementById('xpPill');
+
+function startQuiz(){
+  startScreen.classList.add('hidden');
+  quizArea.classList.remove('hidden');
+  renderQuestion();
+  updateProgress();
+}
+
+function updateProgress(){
+  const answeredCount = answered.filter(Boolean).length;
+  const pct = Math.round((answeredCount/QUESTIONS.length)*100);
+  progressFill.style.width = pct + '%';
+  progressLabel.textContent = `Questão ${Math.min(current+1,QUESTIONS.length)}/${QUESTIONS.length}`;
+  xpPill.textContent = xp + ' XP';
+}
+
+function renderQuestion(){
+  const q = QUESTIONS[current];
+  let html = `<div class="card">
+    <div class="card-header red">${q.module}</div>
+    <div class="qtype">${typeLabel(q.type)}</div>
+    <div class="qtext">${q.q}</div>
+    <div id="qbody"></div>
+    <div class="feedback" id="feedback"></div>
+    <div class="actions">
+      <button class="btn-primary" id="checkBtn" onclick="checkAnswer()" disabled>Verificar resposta</button>
+      <button class="btn-primary hidden" id="nextBtn" onclick="nextQuestion()">${current===QUESTIONS.length-1?'Ver resultado final →':'Próxima questão →'}</button>
+      ${current>0?'<button class="btn-ghost" onclick="prevQuestion()">← Voltar</button>':''}
+    </div>
+  </div>`;
+  quizArea.innerHTML = html;
+  buildBody(q);
+  updateProgress();
+}
+
+function typeLabel(t){
+  return {mc:"Múltipla escolha", tf:"Verdadeiro ou falso", fill:"Complete a frase",
+          order:"Coloque em ordem", match:"Associe as colunas", msel:"Selecione todas que se aplicam"}[t];
+}
+
+let orderPicks = [];
+let matchState = {leftPicked:null, pairs:{}};
+
+function buildBody(q){
+  const body = document.getElementById('qbody');
+  if(q.type==='mc'){
+    body.innerHTML = q.options.map((opt,i)=>
+      `<div class="option" data-i="${i}" onclick="selectMC(${i})"><div class="dot"></div><div>${opt}</div></div>`
+    ).join('');
+  }
+  else if(q.type==='tf'){
+    body.innerHTML = `
+      <div class="option" data-i="1" onclick="selectMC(1)"><div class="dot"></div><div>Verdadeiro</div></div>
+      <div class="option" data-i="0" onclick="selectMC(0)"><div class="dot"></div><div>Falso</div></div>`;
+  }
+  else if(q.type==='msel'){
+    body.innerHTML = q.options.map((opt,i)=>
+      `<div class="option msel" data-i="${i}" onclick="toggleMsel(${i})"><div class="dot"></div><div>${opt}</div></div>`
+    ).join('');
+  }
+  else if(q.type==='fill'){
+    body.innerHTML = `<div class="fill-row"><input type="text" id="fillInput" placeholder="Digite sua resposta..." oninput="document.getElementById('checkBtn').disabled=this.value.trim()===''"></div>`;
+  }
+  else if(q.type==='order'){
+    orderPicks = [];
+    const shuffled = q.items.map((t,i)=>({t,i})).sort(()=>Math.random()-0.5);
+    body.innerHTML = `<ul class="order-list">${shuffled.map(o=>
+      `<li class="order-item" data-orig="${o.i}" onclick="pickOrder(this,${o.i})"><div class="badge">•</div><div>${o.t}</div></li>`
+    ).join('')}</ul><div class="hint-txt">Clique nos itens na ordem correta, do primeiro ao último passo.</div>`;
+  }
+  else if(q.type==='match'){
+    matchState = {leftPicked:null, pairs:{}};
+    const rightShuffled = q.right.map((t,i)=>({t,i})).sort(()=>Math.random()-0.5);
+    body.innerHTML = `<div class="match-grid">
+      <div class="match-col">${q.left.map((t,i)=>`<div class="match-item" data-side="L" data-i="${i}" onclick="pickMatch('L',${i})">${t}</div>`).join('')}</div>
+      <div class="match-col">${rightShuffled.map(o=>`<div class="match-item" data-side="R" data-i="${o.i}" onclick="pickMatch('R',${o.i})">${o.t}</div>`).join('')}</div>
+    </div>
+    <div class="hint-txt">Clique em um item da esquerda e depois no correspondente da direita.</div>`;
+  }
+}
+
+let selectedMC = null;
+function selectMC(i){
+  if(answered[current]) return;
+  selectedMC = i;
+  document.querySelectorAll('.option').forEach(el=>el.classList.remove('selected'));
+  document.querySelector(`.option[data-i="${i}"]`).classList.add('selected');
+  document.getElementById('checkBtn').disabled = false;
+}
+
+let mselPicked = new Set();
+function toggleMsel(i){
+  if(answered[current]) return;
+  const el = document.querySelector(`.option.msel[data-i="${i}"]`);
+  if(mselPicked.has(i)){ mselPicked.delete(i); el.classList.remove('selected'); }
+  else { mselPicked.add(i); el.classList.add('selected'); }
+  document.getElementById('checkBtn').disabled = mselPicked.size===0;
+}
+
+function pickOrder(el, origIndex){
+  if(answered[current] || el.classList.contains('picked')) return;
+  orderPicks.push(origIndex);
+  el.classList.add('picked','locked');
+  el.querySelector('.badge').textContent = orderPicks.length;
+  const q = QUESTIONS[current];
+  document.getElementById('checkBtn').disabled = orderPicks.length !== q.items.length;
+}
+
+function pickMatch(side, idx){
+  if(answered[current]) return;
+  const q = QUESTIONS[current];
+  const el = document.querySelector(`.match-item[data-side="${side}"][data-i="${idx}"]`);
+  if(el.classList.contains('paired')) return;
+
+  if(side==='L'){
+    document.querySelectorAll('.match-item[data-side="L"]').forEach(e=>e.classList.remove('selected'));
+    matchState.leftPicked = idx;
+    el.classList.add('selected');
+  } else {
+    if(matchState.leftPicked===null) return;
+    const leftIdx = matchState.leftPicked;
+    const leftEl = document.querySelector(`.match-item[data-side="L"][data-i="${leftIdx}"]`);
+    if(leftIdx === idx){
+      leftEl.classList.remove('selected'); leftEl.classList.add('paired');
+      el.classList.add('paired');
+      matchState.pairs[leftIdx]=idx;
+      matchState.leftPicked=null;
+      const totalPairs = Object.keys(matchState.pairs).length;
+      document.getElementById('checkBtn').disabled = totalPairs !== q.left.length;
+    } else {
+      el.classList.add('wrong-flash');
+      setTimeout(()=>el.classList.remove('wrong-flash'),450);
+    }
+  }
+}
+
+function checkAnswer(){
+  const q = QUESTIONS[current];
+  let isCorrect = false;
+  const fb = document.getElementById('feedback');
+
+  if(q.type==='mc' || q.type==='tf'){
+    isCorrect = selectedMC === (q.type==='tf' ? (q.correct?1:0) : q.correct);
+    document.querySelectorAll('.option').forEach(el=>{
+      const i = parseInt(el.dataset.i);
+      const isRight = (q.type==='tf') ? (i === (q.correct?1:0)) : (i===q.correct);
+      if(isRight) el.classList.add('correct');
+      else if(el.classList.contains('selected')) el.classList.add('incorrect');
+    });
+  }
+  else if(q.type==='msel'){
+    const set = [...mselPicked].sort().join(',');
+    const correctSet = [...q.correctSet].sort().join(',');
+    isCorrect = set===correctSet;
+    document.querySelectorAll('.option.msel').forEach(el=>{
+      const i = parseInt(el.dataset.i);
+      if(q.correctSet.includes(i)) el.classList.add('correct');
+      else if(mselPicked.has(i)) el.classList.add('incorrect');
+    });
+  }
+  else if(q.type==='fill'){
+    const val = document.getElementById('fillInput').value.trim().toLowerCase();
+    isCorrect = q.accept.some(a=>a.toLowerCase()===val);
+    document.getElementById('fillInput').style.borderColor = isCorrect ? '#16a34a' : '#dc2626';
+    document.getElementById('fillInput').disabled = true;
+  }
+  else if(q.type==='order'){
+    isCorrect = JSON.stringify(orderPicks)===JSON.stringify(q.correctOrder);
+    document.querySelectorAll('.order-item').forEach(el=>{
+      const orig = parseInt(el.dataset.orig);
+      const posInAnswer = orderPicks.indexOf(orig);
+      const posCorrect = q.correctOrder.indexOf(orig);
+      if(posInAnswer===posCorrect) el.classList.add('correct');
+      else el.classList.add('incorrect');
+    });
+  }
+  else if(q.type==='match'){
+    isCorrect = Object.keys(matchState.pairs).length === q.left.length &&
+                Object.entries(matchState.pairs).every(([l,r])=>parseInt(l)===r);
+  }
+
+  answered[current] = true;
+  correctFlags[current] = isCorrect;
+  if(isCorrect) xp += XP_PER_Q;
+
+  fb.className = 'feedback show ' + (isCorrect?'ok':'bad');
+  fb.innerHTML = `<b>${isCorrect?'✔ Resposta correta':'✘ Não foi dessa vez'}</b>${q.explain}`;
+
+  document.getElementById('checkBtn').classList.add('hidden');
+  document.getElementById('nextBtn').classList.remove('hidden');
+  updateProgress();
+}
+
+function nextQuestion(){
+  if(current < QUESTIONS.length-1){
+    current++;
+    selectedMC=null; mselPicked=new Set(); orderPicks=[]; matchState={leftPicked:null,pairs:{}};
+    renderQuestion();
+    if(answered[current]) restoreAnsweredState();
+  } else {
+    showEnd();
+  }
+}
+function prevQuestion(){
+  if(current>0){
+    current--;
+    renderQuestion();
+    if(answered[current]) restoreAnsweredState();
+  }
+}
+function restoreAnsweredState(){
+  document.getElementById('checkBtn').classList.add('hidden');
+  document.getElementById('nextBtn').classList.remove('hidden');
+  const fb = document.getElementById('feedback');
+  const q = QUESTIONS[current];
+  fb.className = 'feedback show ' + (correctFlags[current]?'ok':'bad');
+  fb.innerHTML = `<b>${correctFlags[current]?'✔ Resposta correta':'✘ Não foi dessa vez'}</b>${q.explain}`;
+}
+
+function showEnd(){
+  quizArea.classList.add('hidden');
+  endScreen.classList.remove('hidden');
+  const totalCorrect = correctFlags.filter(Boolean).length;
+  const pct = Math.round((totalCorrect/QUESTIONS.length)*100);
+  document.getElementById('scoreRing').style.setProperty('--pct', pct);
+  document.getElementById('scoreVal').textContent = pct+'%';
+
+  let msg = '';
+  if(pct>=90) msg='Excelente! Você está pronto para conduzir a melhor aplicação da OMASP possível.';
+  else if(pct>=70) msg='Muito bom! Revise os pontos abaixo antes do dia 06/08.';
+  else msg='Vale revisar o Guia com calma antes da aplicação — refaça o treinamento quando quiser.';
+  document.getElementById('endMsg').textContent = `${totalCorrect} de ${QUESTIONS.length} questões corretas · ${xp} XP. ${msg}`;
+
+  const modules = {};
+  QUESTIONS.forEach((q,i)=>{
+    if(!modules[q.module]) modules[q.module]={total:0, correct:0};
+    modules[q.module].total++;
+    if(correctFlags[i]) modules[q.module].correct++;
+  });
+  const bd = document.getElementById('breakdown');
+  bd.innerHTML = Object.entries(modules).map(([m,v])=>
+    `<div class="bd-row"><span>${m}</span><b>${v.correct}/${v.total}</b></div>`
+  ).join('');
+}
+
+function restartQuiz(){
+  current=0; answered=new Array(QUESTIONS.length).fill(false);
+  correctFlags=new Array(QUESTIONS.length).fill(false); xp=0;
+  endScreen.classList.add('hidden');
+  startScreen.classList.remove('hidden');
+  updateProgress();
+}
+</script>
+</body>
+</html>
