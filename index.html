@@ -6,1039 +6,1486 @@
   <title>OMASP 2026 · Guia de Aplicação de Prova</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet" />
   <style>
-    /* ========== IDENTIDADE VISUAL (baseada no guia) ========== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ========== DESIGN TOKENS ========== */
+    :root {
+      --navy: #0a2f6c;
+      --navy-deep: #041a3a;
+      --navy-surface: #0f1a24;
+      --red: #d32f2f;
+      --red-dark: #b91c1c;
+      --gold: #ffec9e;
+      --green: #16a34a;
+      --bg-body: #071525;
+      --surface-light: #f8fafc;
+      --border-light: #e2e8f0;
+      --text-dark: #1e293b;
+      --text-muted: #475569;
+      --text-subtle: #94a3b8;
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 32px;
+      --radius-pill: 60px;
+      --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.18);
+      --shadow-float: 0 20px 40px rgba(0, 0, 0, 0.35);
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Source Serif 4', Georgia, serif;
     }
+
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(145deg, #0a2f6c 0%, #041a3a 100%);
+      font-family: var(--font-body);
+      background: var(--bg-body);
+      background-image:
+        radial-gradient(ellipse at 15% 30%, rgba(10, 47, 108, 0.5) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 70%, rgba(211, 47, 47, 0.08) 0%, transparent 45%);
       min-height: 100vh;
       padding: 20px;
-      color: #1e293b;
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
     }
 
+    /* grain overlay */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      color: var(--navy);
+    }
+    p, li, td { line-height: 1.65; }
+    a { color: inherit; }
+    kbd {
+      background: #e2e8f0; border: 1px solid #cbd5e1;
+      border-radius: 4px; padding: 1px 6px; font-size: 0.8em;
+      font-family: monospace;
+    }
+
+    /* ========== MAIN CONTAINER ========== */
     .main-container {
-      max-width: 1400px;
+      max-width: 1440px;
       margin: 0 auto;
-      background: #0f1a24;
+      background: var(--navy-surface);
       border-radius: 48px;
-      padding: 20px;
-      box-shadow: 0 30px 35px rgba(0, 0, 0, 0.5), inset 0 1px 4px rgba(255, 255, 200, 0.1);
-      border: 1px solid #d32f2f;
+      padding: 24px;
+      box-shadow: var(--shadow-float), inset 0 1px 3px rgba(255,255,200,0.06);
+      border: 1px solid rgba(211,47,47,0.35);
+      animation: containerReveal 0.7s ease forwards;
+    }
+    @keyframes containerReveal {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* cabeçalho */
+    /* ========== HEADER ========== */
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(10, 47, 108, 0.85);
-      backdrop-filter: blur(4px);
-      padding: 12px 24px;
-      border-radius: 60px;
-      margin-bottom: 25px;
+      background: rgba(10, 47, 108, 0.9);
+      backdrop-filter: blur(6px);
+      padding: 14px 28px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 24px;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 14px;
+      border: 1px solid rgba(255,255,255,0.07);
     }
     .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
     }
     .logo-area img {
-      height: 55px;
-      width: auto;
-      border-radius: 12px;
-      background: white;
-      padding: 4px;
+      height: 54px; width: auto;
+      border-radius: var(--radius-sm);
+      background: white; padding: 4px;
       object-fit: contain;
     }
     .logo-text {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #ffec9e;
-      line-height: 1.3;
+      font-family: var(--font-display);
+      font-size: 1rem; font-weight: 700;
+      color: var(--gold); line-height: 1.3;
     }
     .title-badge {
-      background: #d32f2f;
-      color: white;
-      padding: 6px 18px;
-      border-radius: 3rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-      font-size: 0.85rem;
+      background: var(--red);
+      color: white; padding: 7px 22px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-display);
+      font-weight: 800; letter-spacing: 1.5px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
     }
 
-    /* navegação fixa estilo checklist */
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      background: #0f1a24;
-      border-radius: 60px;
-      padding: 6px 12px;
-      margin-bottom: 24px;
+    /* ========== NAVIGATION ========== */
+    .nav-bar {
+      display: flex; flex-wrap: wrap; gap: 5px;
+      background: rgba(15, 26, 36, 0.95);
+      border-radius: var(--radius-pill);
+      padding: 6px 10px;
+      margin-bottom: 28px;
       justify-content: center;
-      border: 1px solid #2c4c6e;
+      border: 1px solid rgba(44, 76, 110, 0.6);
+      position: sticky; top: 10px; z-index: 100;
+      backdrop-filter: blur(8px);
     }
-    .nav-links a {
-      color: #cbd5e6;
+    .nav-bar a {
+      color: var(--text-subtle);
       text-decoration: none;
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 60px;
-      transition: 0.2s;
+      font-family: var(--font-display);
+      font-size: 0.68rem; font-weight: 700;
+      padding: 7px 15px; border-radius: var(--radius-pill);
+      transition: all 0.25s ease;
       cursor: pointer;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+      position: relative;
     }
-    .nav-links a:hover,
-    .nav-links a.active {
-      background: #d32f2f;
+    .nav-bar a:hover {
+      background: rgba(211, 47, 47, 0.2);
+      color: #fff;
+    }
+    .nav-bar a.active {
+      background: var(--red);
       color: white;
+      box-shadow: 0 2px 12px rgba(211, 47, 47, 0.4);
     }
 
-    /* cards padrão */
-    .card {
-      background: white;
-      border-radius: 32px;
-      padding: 1.5rem;
-      margin-bottom: 1.8rem;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      border: 1px solid #e0e4e9;
-      transition: all 0.2s;
-    }
-    .card-header {
-      font-weight: 800;
-      font-size: 1.2rem;
-      color: #003b66;
-      border-left: 4px solid #ffb347;
-      padding-left: 12px;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .card-header.red {
-      border-left-color: #d32f2f;
-      color: #b91c1c;
-    }
-    .card-header .badge {
-      font-size: 0.65rem;
-      background: #d32f2f;
-      color: white;
-      padding: 2px 12px;
-      border-radius: 30px;
-      font-weight: 600;
-    }
-
-    h2,
-    h3 {
-      font-family: 'Inter', sans-serif;
-      font-weight: 800;
-      color: #0a2f6c;
-    }
-    .section-eyebrow {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #d32f2f;
-      margin-bottom: 0.5rem;
-    }
-
-    /* grids */
-    .steps-grid,
-    .obj-grid,
-    .novidades-grid,
-    .parada-grid,
-    .aspectos-grid,
-    .gabarito-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.2rem;
-      margin: 1rem 0;
-    }
-    .step-card,
-    .obj-card,
-    .novidade-card,
-    .parada-card,
-    .aspecto-card,
-    .gabarito-card {
-      background: #f8fafc;
-      border-radius: 24px;
-      padding: 1.2rem;
-      border: 1px solid #e2e8f0;
-      transition: 0.2s;
-    }
-    .obj-card {
-      background: #0a2f6c;
-      color: white;
-      border-left: 4px solid #d32f2f;
-    }
-    .obj-card h3,
-    .obj-card p {
-      color: white;
-    }
-    .obj-card p {
-      color: #cbd5e6;
-    }
-    .step-card .step-num {
-      font-size: 0.7rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: #d32f2f;
-      margin-bottom: 0.5rem;
-    }
-
-    .info-box,
-    .warn-box {
-      border-radius: 24px;
-      padding: 1rem 1.2rem;
-      margin: 1rem 0;
-      font-size: 0.85rem;
-    }
-    .info-box {
-      background: #eef2ff;
-      border-left: 4px solid #0a2f6c;
-      color: #1e293b;
-    }
-    .warn-box {
-      background: #fff8e1;
-      border-left: 4px solid #f9a825;
-      color: #5d4a00;
-    }
-    .danger-box {
-      background: #fef2f2;
-      border-left: 4px solid #d32f2f;
-      color: #7f1d1d;
-    }
-
-    /* tabelas */
-    .percurso-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8rem;
-    }
-    .percurso-table th {
-      background: #0a2f6c;
-      color: white;
-      padding: 10px 12px;
-      text-align: left;
-      font-weight: 600;
-    }
-    .percurso-table td {
-      padding: 10px 12px;
-      border-bottom: 1px solid #e2e8f0;
-      vertical-align: top;
-    }
-    .percurso-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-      margin: 1rem 0;
-      border-radius: 20px;
-      border: 1px solid #e2e8f0;
-    }
-
-    /* checklist gestor */
-    .checklist-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .chk-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: #f8fafc;
-      border-radius: 20px;
-      padding: 12px 16px;
-      cursor: pointer;
-      border: 1px solid #e2e8f0;
-      transition: 0.2s;
-    }
-    .chk-item:hover {
-      background: #f1f5f9;
-    }
-    .chk-item.done {
-      background: #e6f7ef;
-      border-color: #16a34a;
-    }
-    .chk-box {
-      width: 24px;
-      height: 24px;
-      border-radius: 8px;
-      border: 2px solid #cbd5e1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: #16a34a;
-      flex-shrink: 0;
-      transition: 0.2s;
-    }
-    .chk-item.done .chk-box {
-      border-color: #16a34a;
-      background: #16a34a;
-      color: white;
-    }
-    .chk-progress-bar {
-      background: #e2e8f0;
-      border-radius: 12px;
-      height: 8px;
-      overflow: hidden;
-      margin-top: 8px;
-    }
-    .chk-progress-fill {
-      background: linear-gradient(90deg, #0a2f6c, #d32f2f);
-      height: 100%;
-      width: 0%;
-      transition: width 0.4s;
-    }
-    .chk-stats {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      color: #475569;
-      margin-top: 4px;
-    }
-
-    /* abas de conteúdo (para seções grandes) */
+    /* ========== TAB SECTIONS ========== */
     .tab-section {
       display: none;
     }
     .tab-section.active {
       display: block;
+      animation: sectionIn 0.4s ease forwards;
+    }
+    @keyframes sectionIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* links */
+    /* ========== CARDS ========== */
+    .card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin-bottom: 1.8rem;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border-light);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.22);
+    }
+    .card-header {
+      font-family: var(--font-display);
+      font-weight: 800; font-size: 1.25rem;
+      color: var(--navy);
+      border-left: 5px solid #ffb347;
+      padding-left: 14px;
+      margin-bottom: 22px;
+      display: flex; align-items: center;
+      gap: 10px; flex-wrap: wrap;
+    }
+    .card-header.red   { border-left-color: var(--red); color: var(--red-dark); }
+    .card-header.green { border-left-color: var(--green); }
+    .card-header .badge {
+      font-family: var(--font-display);
+      font-size: 0.6rem;
+      background: var(--red); color: white;
+      padding: 3px 14px; border-radius: var(--radius-pill);
+      font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .card-header .badge.green-badge { background: var(--green); }
+    .card-header .badge.navy-badge  { background: var(--navy); }
+
+    /* ========== SECTION EYEBROW ========== */
+    .section-eyebrow {
+      font-family: var(--font-display);
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 0.4rem;
+    }
+
+    /* ========== GRIDS ========== */
+    .grid-auto {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem; margin: 1rem 0;
+    }
+    .step-card, .obj-card, .novidade-card {
+      background: var(--surface-light);
+      border-radius: var(--radius-md);
+      padding: 1.3rem;
+      border: 1px solid var(--border-light);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .step-card:hover, .novidade-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    }
+    .step-card .step-num {
+      font-family: var(--font-display);
+      font-size: 0.68rem; font-weight: 800;
+      text-transform: uppercase; color: var(--red);
+      margin-bottom: 0.5rem; letter-spacing: 0.08em;
+    }
+    .step-card h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+    .step-card p  { font-size: 0.88rem; color: var(--text-muted); }
+
+    .obj-card {
+      background: var(--navy); color: white;
+      border-left: 5px solid var(--red);
+    }
+    .obj-card h3, .obj-card p { color: white; }
+    .obj-card p { color: #cbd5e6; }
+
+    /* ========== INFO / WARN / DANGER BOXES ========== */
+    .info-box, .warn-box, .danger-box {
+      border-radius: var(--radius-md);
+      padding: 1rem 1.3rem;
+      margin: 1rem 0;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+    .info-box {
+      background: #eef2ff;
+      border-left: 5px solid var(--navy);
+      color: var(--text-dark);
+    }
+    .warn-box {
+      background: #fff8e1;
+      border-left: 5px solid #f9a825;
+      color: #5d4a00;
+    }
+    .danger-box {
+      background: #fef2f2;
+      border-left: 5px solid var(--red);
+      color: #7f1d1d;
+    }
+
+    /* ========== TABLES ========== */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+    }
+    .data-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+    .data-table th {
+      background: var(--navy); color: white;
+      padding: 11px 14px; text-align: left;
+      font-family: var(--font-display);
+      font-weight: 700; font-size: 0.78rem;
+      letter-spacing: 0.03em;
+    }
+    .data-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border-light);
+      vertical-align: top;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #f1f5f9; }
+
+    /* ========== TAGS / PILLS ========== */
+    .tag-row {
+      display: flex; flex-wrap: wrap; gap: 8px; padding: 0;
+      list-style: none;
+    }
+    .tag {
+      background: white; padding: 5px 16px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-light);
+      font-size: 0.82rem;
+    }
+
+    /* ========== LINKS & BUTTONS ========== */
     .ext-link {
-      color: #0a2f6c;
-      font-weight: 600;
+      color: var(--navy); font-weight: 600;
       text-decoration: underline;
+      text-underline-offset: 3px;
       word-break: break-all;
+      transition: color 0.2s;
     }
-    .ext-link:hover {
-      color: #d32f2f;
-    }
+    .ext-link:hover { color: var(--red); }
 
     .btn-link {
-      display: inline-block;
-      background: #0a2f6c;
-      color: white;
-      padding: 8px 20px;
-      border-radius: 40px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.8rem;
-      transition: 0.2s;
-      margin: 4px 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--navy); color: white;
+      padding: 10px 24px; border-radius: var(--radius-pill);
+      text-decoration: none; font-family: var(--font-display);
+      font-weight: 700; font-size: 0.82rem;
+      transition: all 0.25s ease;
+      border: none; cursor: pointer;
     }
     .btn-link:hover {
-      background: #d32f2f;
-      color: white;
+      background: var(--red);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(211,47,47,0.35);
     }
 
-    /* footer */
+    /* ========== CHECKLIST ========== */
+    .checklist-wrap {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .chk-item {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--surface-light);
+      border-radius: var(--radius-md);
+      padding: 13px 18px; cursor: pointer;
+      border: 1px solid var(--border-light);
+      transition: all 0.25s ease;
+      user-select: none;
+    }
+    .chk-item:hover { background: #f1f5f9; transform: translateX(4px); }
+    .chk-item.done {
+      background: #e6f7ef;
+      border-color: var(--green);
+    }
+    .chk-item.done .chk-text {
+      text-decoration: line-through;
+      opacity: 0.65;
+    }
+    .chk-box {
+      width: 26px; height: 26px;
+      border-radius: 8px; border: 2.5px solid #cbd5e1;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: bold; color: var(--green);
+      flex-shrink: 0; transition: all 0.25s ease;
+      font-size: 0.8rem;
+    }
+    .chk-item.done .chk-box {
+      border-color: var(--green);
+      background: var(--green); color: white;
+      transform: scale(1.1);
+    }
+    .chk-progress-bar {
+      background: var(--border-light);
+      border-radius: 12px; height: 10px;
+      overflow: hidden; margin-top: 10px;
+    }
+    .chk-progress-fill {
+      background: linear-gradient(90deg, var(--navy), var(--red));
+      height: 100%; width: 0%;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 12px;
+    }
+    .chk-stats {
+      display: flex; justify-content: space-between;
+      font-family: var(--font-display);
+      font-size: 0.75rem; font-weight: 700;
+      color: var(--text-muted); margin-top: 6px;
+    }
+
+    /* ========== DOCUMENT CARDS ========== */
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.4rem; margin: 1.2rem 0;
+    }
+    .doc-card {
+      background: var(--surface-light);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      border: 1px solid var(--border-light);
+      transition: all 0.25s ease;
+      display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+    }
+    .doc-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 4px;
+      background: linear-gradient(90deg, var(--navy), var(--red));
+    }
+    .doc-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      border-color: var(--navy);
+    }
+    .doc-card .doc-icon {
+      font-size: 2rem; margin-bottom: 0.8rem;
+    }
+    .doc-card h3 {
+      font-family: var(--font-display);
+      font-size: 1rem; margin-bottom: 0.4rem;
+      color: var(--navy);
+    }
+    .doc-card p {
+      font-size: 0.85rem; color: var(--text-muted);
+      margin-bottom: 1rem; flex-grow: 1;
+    }
+    .doc-card .doc-type {
+      font-family: var(--font-display);
+      font-size: 0.6rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--red); margin-bottom: 0.3rem;
+    }
+
+    /* ========== POLO CARDS ========== */
+    .polo-embed-wrap {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 2px solid var(--border-light);
+      margin: 1.2rem 0;
+      background: white;
+    }
+    .polo-embed-wrap iframe {
+      width: 100%; height: 500px;
+      border: none; display: block;
+    }
+    .polo-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem; margin: 1.2rem 0;
+    }
+    .polo-stat {
+      background: var(--navy);
+      color: white;
+      border-radius: var(--radius-md);
+      padding: 1.3rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .polo-stat .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.4rem; font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .polo-stat .stat-label {
+      font-family: var(--font-display);
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.3rem;
+      color: #94a3b8;
+    }
+
+    /* ========== FLOW DIAGRAM ========== */
+    .flow-bar {
+      background: var(--surface-light);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 700; font-size: 0.95rem;
+      color: var(--navy);
+      letter-spacing: 0.5px;
+      border: 2px dashed var(--border-light);
+    }
+
+    /* ========== FINISH BANNER ========== */
+    .finish-banner {
+      background: var(--surface-light);
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      text-align: center;
+      border: 2px dashed var(--navy);
+    }
+    .finish-banner p {
+      font-family: var(--font-display);
+      font-weight: 800; font-size: 1.3rem;
+      color: var(--navy);
+    }
+
+    /* ========== FOOTER ========== */
     footer {
       text-align: center;
-      margin-top: 2rem;
-      padding: 1.5rem 1rem 0.5rem;
+      margin-top: 2.5rem;
+      padding: 1.8rem 1rem 0.6rem;
       color: #b4c8e0;
-      font-size: 0.75rem;
-      border-top: 1px solid #2c4c6e;
+      font-size: 0.78rem;
+      border-top: 1px solid rgba(44, 76, 110, 0.5);
+    }
+    footer .footer-brand {
+      font-family: var(--font-display);
+      font-weight: 800; color: var(--gold);
+      font-size: 0.88rem;
+      letter-spacing: 0.03em;
     }
 
+    /* ========== PRINT BUTTON ========== */
     .print-btn {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: linear-gradient(135deg, #0a2f6c, #052050);
-      color: white;
-      border: none;
-      border-radius: 60px;
-      padding: 12px 24px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'Inter', sans-serif;
-      z-index: 10;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      transition: 0.2s;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      bottom: 24px; right: 24px;
+      background: linear-gradient(135deg, var(--navy), var(--navy-deep));
+      color: white; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-pill);
+      padding: 13px 26px;
+      font-family: var(--font-display);
+      font-weight: 700; font-size: 0.82rem;
+      cursor: pointer; display: flex;
+      align-items: center; gap: 8px;
+      z-index: 100;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      transition: all 0.25s ease;
     }
     .print-btn:hover {
-      background: #d32f2f;
-      transform: scale(1.03);
+      background: var(--red);
+      transform: scale(1.04);
     }
 
-    @media print {
-      body {
-        background: white;
-        padding: 0;
-      }
-      .main-container {
-        background: white;
-        padding: 0;
-        box-shadow: none;
-        border: none;
-        border-radius: 0;
-      }
-      .header {
-        background: #0a2f6c !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-        border-radius: 0;
-      }
-      .print-btn,
-      .nav-links {
-        display: none !important;
-      }
-      .card {
-        break-inside: avoid;
-        border: 1px solid #ccc;
-        box-shadow: none;
-        border-radius: 12px;
-      }
-      .tab-section {
-        display: block !important;
-      }
-      .card-header .badge {
-        background: #d32f2f !important;
-        color: white !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
+    /* ========== SEPARATOR ========== */
+    .sep {
+      margin: 1.6rem 0;
+      border: none;
+      border-top: 2px dashed var(--border-light);
     }
 
-    /* responsivo */
-    @media (max-width: 640px) {
-      body {
-        padding: 10px;
-      }
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      body { padding: 10px; }
       .main-container {
-        padding: 12px;
-        border-radius: 28px;
+        padding: 14px; border-radius: 28px;
       }
       .header {
         padding: 10px 16px;
         flex-direction: column;
-        align-items: stretch;
-        text-align: center;
+        align-items: stretch; text-align: center;
+        border-radius: 28px;
       }
-      .logo-area {
-        justify-content: center;
+      .logo-area { justify-content: center; }
+      .title-badge { align-self: center; }
+      .nav-bar {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        border-radius: 24px;
+        position: static;
       }
-      .title-badge {
-        align-self: center;
+      .nav-bar::-webkit-scrollbar { display: none; }
+      .nav-bar a {
+        font-size: 0.6rem; padding: 5px 11px;
       }
-      .card {
-        padding: 1rem;
-      }
-      .nav-links a {
-        font-size: 0.6rem;
-        padding: 4px 10px;
-      }
-      .percurso-table {
-        font-size: 0.7rem;
-      }
-      .percurso-table th,
-      .percurso-table td {
-        padding: 6px 8px;
-      }
-      .steps-grid,
-      .obj-grid {
-        grid-template-columns: 1fr;
-      }
+      .card { padding: 1.1rem; border-radius: 24px; }
+      .card-header { font-size: 1.1rem; }
+      .data-table { font-size: 0.75rem; }
+      .data-table th, .data-table td { padding: 8px 10px; }
+      .grid-auto, .doc-grid { grid-template-columns: 1fr; }
+      .polo-stat-grid { grid-template-columns: repeat(2, 1fr); }
+      .polo-embed-wrap iframe { height: 350px; }
       .print-btn {
-        bottom: 12px;
-        right: 12px;
-        padding: 8px 16px;
-        font-size: 0.75rem;
+        bottom: 12px; right: 12px;
+        padding: 9px 16px; font-size: 0.72rem;
+      }
+    }
+
+    /* ========== PRINT ========== */
+    @media print {
+      body {
+        background: white !important;
+        padding: 0;
+      }
+      body::after { display: none; }
+      .main-container {
+        background: white; padding: 0;
+        box-shadow: none; border: none;
+        border-radius: 0;
+      }
+      .header {
+        background: var(--navy) !important;
+        border-radius: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .print-btn, .nav-bar { display: none !important; }
+      .card {
+        break-inside: avoid;
+        border: 1px solid #ccc;
+        box-shadow: none; border-radius: 16px;
+      }
+      .card:hover { transform: none; }
+      .tab-section { display: block !important; }
+      .card-header .badge {
+        background: var(--red) !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .polo-stat {
+        background: var(--navy) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .data-table th {
+        background: var(--navy) !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="main-container">
+<div class="main-container">
 
-    <!-- ========== CABEÇALHO ========== -->
-    <div class="header">
-      <div class="logo-area">
-        <img src="https://i.ibb.co/0p01LzxB/logo3de.jpg" alt="Logo SEDUC SP" />
-        <div class="logo-text">URE CAIEIRAS · Seduc SP</div>
+  <!-- ========== HEADER ========== -->
+  <header class="header">
+    <div class="logo-area">
+      <img src="https://i.ibb.co/0p01LzxB/logo3de.jpg" alt="Logo SEDUC SP" />
+      <div class="logo-text">URE CAIEIRAS · Seduc SP</div>
+    </div>
+    <div class="title-badge">OMASP 2026</div>
+  </header>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="nav-bar" id="mainNav">
+    <a class="active" data-tab="tab-objetivo">Objetivo</a>
+    <a data-tab="tab-recapitulando">Recapitulando</a>
+    <a data-tab="tab-preparacao">Preparação</a>
+    <a data-tab="tab-polos">Polos</a>
+    <a data-tab="tab-fiscais">Fiscais</a>
+    <a data-tab="tab-tecnico">Problemas Técnicos</a>
+    <a data-tab="tab-diario">Diário de Classe</a>
+    <a data-tab="tab-transferidos">Transferidos &amp; Token</a>
+    <a data-tab="tab-token">Gerar Token em Lote</a>
+    <a data-tab="tab-diario1">Treinamento Fase 3°</a>
+    <a data-tab="tab-documentos">Documentos</a>
+  </nav>
+
+  <!-- ========== 1. OBJETIVO ========== -->
+  <section id="tab-objetivo" class="tab-section active">
+    <div class="card">
+      <div class="card-header">
+        Objetivo
+        <span class="badge">Guia Prático</span>
       </div>
-      <div class="title-badge">OMASP 2026</div>
+      <p style="font-size:1.05rem; line-height:1.7; margin-bottom:0.6rem;">
+        Este documento foi elaborado com base no <strong>Regulamento da OMASP 2026</strong> para servir como um guia prático e norteador para <strong>dirigentes, PECs, professores e supervisores</strong> da rede pública de São Paulo.
+      </p>
+      <p style="font-size:1.05rem; line-height:1.7;">
+        O foco é garantir uma aplicação de excelência, respeitando as especificidades dos alunos dos <strong>Anos Finais do Ensino Fundamental</strong> (6° ao 9° ano) e <strong>Ensino Médio</strong> (1ª até 3ª série).
+      </p>
     </div>
 
-    <!-- ========== NAVEGAÇÃO ========== -->
-    <nav class="nav-links" id="mainNav">
-      <a class="active" data-tab="tab-objetivo">Objetivo</a>
-      <a data-tab="tab-recapitulando">Recapitulando</a>
-      <a data-tab="tab-preparacao">Preparação</a>
-      <a data-tab="tab-fiscais">Fiscais</a>
-      <a data-tab="tab-tecnico">Problemas Técnicos</a>
-      <a data-tab="tab-diario">Diário de Classe</a>
-      <a data-tab="tab-transferidos">Transferidos &amp; Token</a>
-      <a data-tab="tab-token">Gerar Token em Lote</a>
-    </nav>
+    <div class="info-box">
+      <strong>Divulgação e Materiais Oficiais</strong><br />
+      Acesse a aba <a class="ext-link" href="#" onclick="switchTab('tab-documentos');return false;">Documentos</a> para encontrar todos os materiais de divulgação, guias e apresentações centralizados em um só lugar.
+    </div>
+  </section>
 
-    <!-- ========== CONTEÚDO ========== -->
-
-    <!-- ====== 1. OBJETIVO ====== -->
-    <section id="tab-objetivo" class="tab-section active">
-      <div class="card">
-        <div class="card-header">
-          🎯 Objetivo
-          <span class="badge">Guia prático</span>
-        </div>
-        <p style="font-size:1rem; line-height:1.6; margin-bottom:0.5rem;">
-          Este documento foi elaborado com base no <strong>Regulamento da OMASP 2026</strong> para servir como um guia prático e norteador para <strong>dirigentes, PECs, professores e supervisores</strong> da rede pública de São Paulo.
-        </p>
-        <p style="font-size:1rem; line-height:1.6;">
-          O foco é garantir uma aplicação de excelência, respeitando as especificidades dos alunos dos <strong>Anos Finais do Ensino Fundamental</strong> (do 6° ao 9° ano) e <strong>Ensino Médio</strong> (da 1ª até 3ª série).
-        </p>
+  <!-- ========== 2. RECAPITULANDO ========== -->
+  <section id="tab-recapitulando" class="tab-section">
+    <div class="card">
+      <div class="card-header red">
+        Recapitulando
+        <span class="badge">3 Etapas</span>
       </div>
-      <div class="info-box" style="margin:1rem 0;">
-          <strong>📢 Divulgação </strong> (Disponível no link abaixo) <br />
-          <a class="ext-link" href="https://drive.google.com/file/d/1ix7HRDcZTLNsy6JsKW7mi9MeHT3LpzAc/view?usp=drive_link" target="_blank" rel="noopener">
-            Post polos !
-          </a><br>
-           <strong>📢 Divulgação </strong> (Disponível no link abaixo) <br />
-          <a class="ext-link" href="https://drive.google.com/file/d/1S9yNUzGRG9tqmKQBKjEyOEUCVZwmVrEi/view?usp=drive_link" target="_blank" rel="noopener">
-            Banner escolas!
-          </a>
-         <br>
-           <strong>📢 Guia fase III </strong> (Disponível no link abaixo) <br />
-          <a class="ext-link" href="https://drive.google.com/file/d/1IRL1DtKKVXYgh7p1-lWXcfOk8BTT87Uo/view?usp=drive_link" target="_blank" rel="noopener">
-            Guia Oficial!
-          </a>
-          <span style="display:block; font-size:0.8rem; color:#475569; margin-top:4px;"></span>
+      <p style="margin-bottom:1.2rem; font-family:var(--font-display); font-weight:700; color:var(--navy); font-size:1rem;">
+        A OMASP é realizada em três etapas:
+      </p>
+      <div class="grid-auto">
+        <div class="step-card">
+          <div class="step-num">Etapa 1</div>
+          <h3>Classificatória</h3>
+          <p>Realização da <strong>Prova Paulista</strong>.</p>
         </div>
-    </section>
+        <div class="step-card">
+          <div class="step-num">Etapa 2</div>
+          <h3>Municipal</h3>
+          <p>Avaliação feita na <strong>própria escola</strong>.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">Etapa 3</div>
+          <h3>Estadual</h3>
+          <p>Avaliação feita em <strong>polo de aplicação</strong> definido pela URE.</p>
+        </div>
+      </div>
+      <div class="info-box" style="margin-top:1.2rem;">
+        <strong>Formato:</strong> As provas são realizadas no formato <strong>online</strong>, contendo <strong>20 questões de múltipla escolha</strong>.
+      </div>
+      <div class="warn-box">
+        <strong>Atenção:</strong> Apenas os alunos <strong>medalhistas de Ouro na Fase 2</strong> participam da Fase 3 — Etapa Estadual.
+      </div>
+      <div class="info-box">
+        <strong>Previsão 2026:</strong> Aplicação da avaliação em <strong>Polos Olímpicos</strong> definidos pelas Unidades Regionais de Ensino (URE).
+      </div>
+    </div>
+  </section>
 
-    <!-- ====== 2. RECAPITULANDO ====== -->
-    <section id="tab-recapitulando" class="tab-section">
-      <div class="card">
-        <div class="card-header red">
-          🔁 Recapitulando
-          <span class="badge">3 etapas</span>
+  <!-- ========== 3. PREPARAÇÃO E LOGÍSTICA ========== -->
+  <section id="tab-preparacao" class="tab-section">
+    <div class="card">
+      <div class="card-header">
+        Preparação e Logística Escolar
+        <span class="badge navy-badge">Cronograma</span>
+      </div>
+
+      <p class="section-eyebrow">Fase Estadual</p>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>Nível</th><th>Data</th><th>Horário</th><th>Local</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1, 2 e 3 (todos os níveis)</td>
+              <td><strong>06/08</strong></td>
+              <td><strong>09h</strong></td>
+              <td>Polo de Aplicação da URE</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:0.95rem; margin:0.6rem 0;">
+        <strong>Duração:</strong> O tempo recomendado para a realização das provas é de até <strong>2 horas</strong>.
+      </p>
+
+      <hr class="sep" />
+
+      <p class="section-eyebrow">Conceito</p>
+      <h3 style="font-size:1.05rem; margin-bottom:0.6rem;">Como funciona um polo olímpico?</h3>
+      <p style="font-size:0.95rem; line-height:1.7;">
+        Uma aplicação em polo significa que todos os alunos de uma mesma região irão realizar suas avaliações em um <strong>mesmo local</strong>, semelhante ao modelo de aplicação do ENEM ou na Fase 2 da OBMEP.
+      </p>
+      <p style="font-size:0.95rem; line-height:1.7; margin-top:0.5rem;">
+        Cada URE irá selecionar <strong>pelo menos 1 local</strong> para ser utilizado como polo. Todas as informações prévias relacionadas ao endereço e trajeto até o polo olímpico devem ser <strong>bastante divulgadas</strong> com as escolas para evitar imprevistos no dia da aplicação.
+      </p>
+
+      <div class="info-box" style="margin-top:1.2rem;">
+        <strong>Temos 13 polos cadastrados.</strong> Confira a lista completa na aba
+        <a class="ext-link" href="#" onclick="switchTab('tab-polos');return false;">Polos</a>.
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 4. POLOS (NOVA) ========== -->
+  <section id="tab-polos" class="tab-section">
+    <div class="card">
+      <div class="card-header green">
+        Polos Olímpicos
+        <span class="badge green-badge">Fase 3</span>
+      </div>
+      <p style="font-size:1rem; line-height:1.7; margin-bottom:1rem;">
+        Os <strong>Polos Olímpicos</strong> são os locais definidos pela URE onde os estudantes medalhistas de Ouro realizarão a prova da Fase 3. Confira abaixo os números-chave e a planilha completa com todos os polos da região.
+      </p>
+
+      <div class="polo-stat-grid">
+        <div class="polo-stat">
+          <div class="stat-number">13</div>
+          <div class="stat-label">Polos Cadastrados</div>
         </div>
-        <p style="margin-bottom:1.2rem; font-weight:600; color:#0a2f6c;">A OMASP é realizada em três etapas:</p>
-        <div class="steps-grid">
-          <div class="step-card">
-            <div class="step-num">Etapa 1</div>
-            <h3 style="font-size:1rem;">Classificatória</h3>
-            <p style="font-size:0.85rem; color:#475569;">Realização da <strong>Prova Paulista</strong>.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">Etapa 2</div>
-            <h3 style="font-size:1rem;">Municipal</h3>
-            <p style="font-size:0.85rem; color:#475569;">Avaliação feita na <strong>própria escola</strong>.</p>
-          </div>
-          <div class="step-card">
-            <div class="step-num">Etapa 3</div>
-            <h3 style="font-size:1rem;">Estadual</h3>
-            <p style="font-size:0.85rem; color:#475569;">Avaliação feita em <strong>polo de aplicação</strong> definido pela URE.</p>
-          </div>
+        <div class="polo-stat">
+          <div class="stat-number">06/08</div>
+          <div class="stat-label">Data da Prova</div>
         </div>
-        <div class="info-box" style="margin-top:1rem;">
-          <strong>📌 Formato:</strong> As provas são realizadas no formato <strong>online</strong>, contendo <strong>20 questões de múltipla escolha</strong>.
+        <div class="polo-stat">
+          <div class="stat-number">09h</div>
+          <div class="stat-label">Horário de Início</div>
         </div>
+        <div class="polo-stat">
+          <div class="stat-number">2h</div>
+          <div class="stat-label">Duração Máxima</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        Planilha de Polos
+        <span class="badge navy-badge">13 locais</span>
+      </div>
+      <p style="font-size:0.95rem; line-height:1.7; margin-bottom:1rem;">
+        Acesse a planilha completa com endereços, responsáveis e informações de cada polo:
+      </p>
+      <div class="polo-embed-wrap">
+        <iframe
+          src="https://docs.google.com/spreadsheets/d/1lgSdfL5Jafxhx58Yru2sZtzQ9NjEM5ffsnRhenDA7B0/pubhtml?widget=false&headers=false"
+          loading="lazy"
+          title="Planilha de Polos OMASP 2026"
+        ></iframe>
+      </div>
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.5rem;">
+        Caso a planilha não carregue, <a class="ext-link" href="https://docs.google.com/spreadsheets/d/1lgSdfL5Jafxhx58Yru2sZtzQ9NjEM5ffsnRhenDA7B0/edit?usp=sharing" target="_blank" rel="noopener">clique aqui para abrir em nova aba</a>.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-header red">
+        Orientações para os Polos
+        <span class="badge">Importante</span>
+      </div>
+      <ul style="padding-left:1.4rem; font-size:0.95rem; line-height:1.9;">
+        <li>Divulgue o <strong>endereço completo</strong> do polo com antecedência para todas as escolas da região.</li>
+        <li>Inclua informações sobre <strong>transporte público</strong> e estacionamento, quando aplicável.</li>
+        <li>Garanta que o polo tenha <strong>infraestrutura de internet</strong> e energia elétrica estáveis.</li>
+        <li>Organize <strong>salas com visibilidade</strong> adequada para os fiscais.</li>
+        <li>Disponibilize <strong>banheiros acessíveis</strong> e sinalização clara.</li>
+        <li>Defina um <strong>ponto de encontro</strong> para os estudantes antes do início da prova.</li>
+        <li>Confirme a presença dos <strong>fiscais de prova</strong> com pelo menos 48h de antecedência.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== 5. FISCAIS DE PROVA ========== -->
+  <section id="tab-fiscais" class="tab-section">
+    <div class="card">
+      <div class="card-header red">
+        Orientações para Fiscais de Prova
+        <span class="badge">Perfil &amp; Boas Práticas</span>
+      </div>
+
+      <p class="section-eyebrow">Quem são?</p>
+      <p style="font-size:0.98rem; line-height:1.7;">
+        Fiscais de prova são pessoas responsáveis por acompanhar, supervisionar e garantir o bom andamento da aplicação da OMASP.
+        Aconselhamos que essas pessoas sejam membros do <strong>corpo docente</strong> ou do <strong>trio gestor</strong>.
+      </p>
+
+      <div style="background:#f1f5f9; border-radius:var(--radius-md); padding:1.2rem; margin:1.2rem 0;">
+        <p style="font-family:var(--font-display); font-weight:700; color:var(--navy); margin-bottom:0.6rem;">APP para fiscais & Perfil recomendado do aplicador:</p>
+        <div class="info-box">
+        <strong>Aplicativo de fiscais:</strong><br />
+        <a class="ext-link" href="https://script.google.com/a/macros/prof.educacao.sp.gov.br/s/AKfycbzya9k2djAoQyqtNhZGWErDEAHw9WMKwwUZ2tIo3UAtGCNEP-82aUKk3Aus1L32Neaung/exec" target="_blank" rel="noopener">
+          CADASTRAMENTO DE FISCAIS
+        </a>
+        <span style="display:block; font-size:0.82rem; color:var(--text-muted); margin-top:4px;">
+          Com ele, vamos:<br>
+1. Cadastrar os fiscais, ou seja, os aplicadores de prova (cada aplicador faz o seu cadastro);<br>
+2. Monitorar a presença;<br>
+3. Anexar a lista física de presença.<br>
+        </span>
+      </div>
+        <ul class="tag-row">
+          <li class="tag">Atenção aos detalhes</li>
+          <li class="tag">Imparcialidade</li>
+          <li class="tag">Pontualidade</li>
+          <li class="tag">Senso de Responsabilidade</li>
+          <li class="tag">Boa Comunicação</li>
+        </ul>
         <div class="warn-box" style="margin-top:0.8rem;">
-          <strong>🏅 Atenção:</strong> Apenas os alunos <strong>medalhistas de Ouro na Fase 2</strong> participam da Fase 3 – Etapa Estadual.
-        </div>
-        <div class="info-box" style="margin-top:0.8rem;">
-          <strong>📍 Previsão 2026:</strong> Aplicação da avaliação em <strong>Polos Olímpicos</strong> definidos pelas Unidades Regionais de Ensino (URE).
+          <strong>Desaconselhamos</strong> que sejam professores de <strong>Matemática</strong>.
         </div>
       </div>
-    </section>
 
-    <!-- ====== 3. PREPARAÇÃO E LOGÍSTICA ====== -->
-    <section id="tab-preparacao" class="tab-section">
-      <div class="card">
-        <div class="card-header">
-          📋 Preparação e Logística Escolar
-          <span class="badge">Cronograma</span>
-        </div>
-
-        <h3 style="font-size:1rem; margin:0.5rem 0 0.2rem;">📅 Fase Estadual</h3>
-        <div class="table-wrap">
-          <table class="percurso-table">
-            <thead>
-              <tr><th>Nível</th><th>Data</th><th>Horário</th><th>Local</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>1, 2 e 3 (todos os níveis)</td><td><strong>06/08</strong></td><td><strong>09h</strong></td><td>Polo de Aplicação da URE</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p style="font-size:0.9rem; margin:0.5rem 0;"><strong>⏱ Duração:</strong> O tempo recomendado para a realização das provas é de até <strong>2 horas</strong>.</p>
-
-        <hr style="margin:1.5rem 0; border:1px dashed #e2e8f0;" />
-
-        <h3 style="font-size:1rem; margin-bottom:0.8rem;">🏛 Como funciona um polo olímpico?</h3>
-        <p style="font-size:0.95rem; line-height:1.6;">
-          Uma aplicação em polo significa que todos os alunos de uma mesma região irão realizar suas avaliações em um <strong>mesmo local</strong>, semelhante ao modelo de aplicação do ENEM ou na Fase 2 da OBMEP.
-        </p>
-        <p style="font-size:0.95rem; line-height:1.6; margin-top:0.5rem;">
-          Cada URE irá selecionar <strong>pelo menos 1 local</strong> para ser utilizado como polo. Todas as informações prévias relacionadas ao endereço e trajeto até o polo olímpico devem ser <strong>bastante divulgadas</strong> com as escolas para evitar imprevistos no dia da aplicação.
-        </p>
+      <div class="danger-box">
+        <strong>Atenção:</strong> A prova só estará aberta das <strong>9:00 às 11:00</strong> — horário <strong>ÚNICO</strong> de aplicação da Fase 3. Qualquer tentativa de acesso fora desse período não será bem-sucedida.
       </div>
-      <div class="info-box" style="margin:1rem 0;">
-          <strong>📍 Temos 13 polos </strong> (Disponível no link abaixo) <br />
-          <a class="ext-link" href="https://docs.google.com/spreadsheets/d/1lgSdfL5Jafxhx58Yru2sZtzQ9NjEM5ffsnRhenDA7B0/edit?usp=sharing" target="_blank" rel="noopener">
-            Polos
-          </a>
-          <span style="display:block; font-size:0.8rem; color:#475569; margin-top:4px;"></span>
-        </div>
-    </section>
 
-    <!-- ====== 4. FISCAIS DE PROVA ====== -->
-    <section id="tab-fiscais" class="tab-section">
-      <div class="card">
-        <div class="card-header red">
-          👥 Orientações para fiscais de prova
-          <span class="badge">Perfil &amp; boas práticas</span>
-        </div>
-
-        <h3 style="font-size:1rem; margin-bottom:0.5rem;">Quem são?</h3>
-        <p style="font-size:0.95rem; line-height:1.6;">
-          Fiscais de prova são pessoas responsáveis por acompanhar, supervisionar e garantir o bom andamento da aplicação da OMASP.
-          Aconselhamos que essas pessoas sejam membros do <strong>corpo docente</strong> ou do <strong>trio gestor</strong>.
-        </p>
-
-        <div style="background:#f1f5f9; border-radius:20px; padding:1rem; margin:1rem 0;">
-          <p style="font-weight:700; color:#0a2f6c; margin-bottom:0.5rem;">✅ Perfil recomendado do aplicador de prova:</p>
-          <ul style="list-style:none; display:flex; flex-wrap:wrap; gap:8px; padding:0;">
-            <li style="background:white; padding:4px 16px; border-radius:30px; border:1px solid #e2e8f0; font-size:0.8rem;">🔍 Atenção aos detalhes</li>
-            <li style="background:white; padding:4px 16px; border-radius:30px; border:1px solid #e2e8f0; font-size:0.8rem;">⚖️ Imparcialidade</li>
-            <li style="background:white; padding:4px 16px; border-radius:30px; border:1px solid #e2e8f0; font-size:0.8rem;">⏰ Pontualidade</li>
-            <li style="background:white; padding:4px 16px; border-radius:30px; border:1px solid #e2e8f0; font-size:0.8rem;">🧠 Senso de Responsabilidade</li>
-            <li style="background:white; padding:4px 16px; border-radius:30px; border:1px solid #e2e8f0; font-size:0.8rem;">💬 Boa Comunicação</li>
-          </ul>
-          <div class="warn-box" style="margin-top:0.8rem;">
-            <strong>⚠️ Desaconselhamos</strong> que sejam professores de <strong>Matemática</strong>.
-          </div>
-        </div>
-
-        <div class="danger-box" style="margin:1rem 0;">
-          <strong>🕘 Atenção:</strong> A prova só estará aberta das <strong>9:00 às 11:00</strong> – horário <strong>ÚNICO</strong> de aplicação da Fase 3. Qualquer tentativa de acesso fora desse período não será bem-sucedida.
-        </div>
-
-        <h3 style="font-size:1rem; margin:1.2rem 0 0.8rem;">📋 Instruções para aplicação da prova</h3>
-        <div class="table-wrap">
-          <table class="percurso-table">
-            <thead>
-              <tr><th style="width:30%;">Boa prática</th><th>Descrição</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Presença constante</strong></td>
-                <td>Na sala de aplicação, deverá haver, em todo o tempo, pelo menos e obrigatoriamente <strong>um fiscal</strong> de aplicação.</td>
-              </tr>
-              <tr>
-                <td><strong>Orientar os candidatos</strong></td>
-                <td>Informar sobre regras, horários e procedimentos da prova.</td>
-              </tr>
-              <tr>
-                <td><strong>Cuidado com dispositivos eletrônicos</strong></td>
-                <td>Pedir que os dispositivos (principalmente celulares) sejam <strong>desligados e guardados</strong> dentro da mochila. Recomendamos que sejam <strong>recolhidos</strong> durante a aplicação.</td>
-              </tr>
-              <tr>
-                <td><strong>Manter a ordem e o silêncio</strong></td>
-                <td>Garantir um ambiente adequado, sem interferências ou colas.</td>
-              </tr>
-              <tr>
-                <td><strong>Registrar ocorrências</strong></td>
-                <td>Anotar qualquer irregularidade (tentativas de fraude, atrasos, problemas) e reportar aos <strong>pontos focais da URE</strong>.</td>
-              </tr>
-              <tr>
-                <td><strong>Controlar o tempo de prova</strong></td>
-                <td>Avisar os candidatos sobre o tempo restante, conforme instruções.</td>
-              </tr>
-              <tr>
-                <td><strong>Posicionamento favorável</strong></td>
-                <td>Posicionar-se no <strong>fundo da sala</strong> observando os estudantes.</td>
-              </tr>
-              <tr>
-                <td><strong>Organização da Sala</strong></td>
-                <td>Organizar a sala de forma que seja possível ter visão dos <strong>monitores</strong> dos estudantes.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="warn-box">
-          <strong>🚫 O estudante que desrespeitar as regras</strong> deverá ser alertado e, em última instância, convidado a se retirar da sala e <strong>não finalizar a prova</strong>. Além disso, deverá ser <strong>desclassificado</strong> por meio do Diário de Classe (apontar ausência).
-        </div>
-        <div class="info-box">
-          <strong>⏱ Aumentar o tempo de prova</strong> caso haja qualquer imprevisto durante a aplicação (queda de energia ou de internet, por exemplo).
-        </div>
-
-        <h3 style="font-size:1rem; margin:1.2rem 0 0.8rem;">✅ Boas práticas na aplicação</h3>
-        <div class="table-wrap">
-          <table class="percurso-table">
-            <thead>
-              <tr><th style="width:30%;">Boa prática</th><th>Descrição</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Inclusão</strong></td>
-                <td>Permitir que os estudantes elegíveis à educação especial sejam assistidos de acordo com suas necessidades e que tenham, se for o caso, <strong>tempo estendido</strong>.</td>
-              </tr>
-              <tr>
-                <td><strong>Orientações pertinentes</strong></td>
-                <td>Orientar os estudantes a <strong>“Salvar Rascunho”</strong> durante a realização da prova para evitar perda de dados.</td>
-              </tr>
-              <tr>
-                <td><strong>Conferir finalização da prova</strong></td>
-                <td>Orientar e verificar se cada estudante apertou o botão <strong>“finalizar prova”</strong>.</td>
-              </tr>
-              <tr>
-                <td><strong>Movimentação</strong></td>
-                <td>Circular de forma <strong>recorrente</strong> entre os alunos.</td>
-              </tr>
-              <tr>
-                <td><strong>Checagem de navegador</strong></td>
-                <td>Conferir se os estudantes estão apenas com a <strong>aba de aplicação de prova</strong> aberta no navegador.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div style="background:#f1f5f9; border-radius:20px; padding:1rem; margin-top:1rem;">
-          <p style="font-weight:600; color:#0a2f6c;">🔐 Verificações de login:</p>
-          <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:8px;">
-            <li style="background:white; padding:8px 16px; border-radius:12px; border:1px solid #e2e8f0; font-size:0.85rem;">➡️ Verifique se está tudo certo com o <strong>login</strong> – é recorrente erro de digitação.</li>
-            <li style="background:white; padding:8px 16px; border-radius:12px; border:1px solid #e2e8f0; font-size:0.85rem;">➡️ Verifique se a <strong>data e hora do computador</strong> estão atualizadas (a prova não abre se estiverem diferentes). Para esses casos, sugerimos <strong>trocar o computador</strong>.</li>
-            <li style="background:white; padding:8px 16px; border-radius:12px; border:1px solid #e2e8f0; font-size:0.85rem;">➡️ Se o problema persistir, <strong>esvazie o cache</strong> do navegador (atalho <kbd>Ctrl + Shift + Delete</kbd>) ou use a <strong>guia anônima</strong>.</li>
-          </ul>
-        </div>
+      <p class="section-eyebrow" style="margin-top:1.4rem;">Instruções para aplicação</p>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th style="width:30%;">Boa Prática</th><th>Descrição</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Presença constante</strong></td>
+              <td>Na sala de aplicação, deverá haver, em todo o tempo, pelo menos e obrigatoriamente <strong>um fiscal</strong>.</td>
+            </tr>
+            <tr>
+              <td><strong>Orientar os candidatos</strong></td>
+              <td>Informar sobre regras, horários e procedimentos da prova.</td>
+            </tr>
+            <tr>
+              <td><strong>Cuidado com dispositivos</strong></td>
+              <td>Pedir que celulares sejam <strong>desligados e guardados</strong>. Recomendamos que sejam <strong>recolhidos</strong> durante a aplicação.</td>
+            </tr>
+            <tr>
+              <td><strong>Manter a ordem</strong></td>
+              <td>Garantir um ambiente adequado, sem interferências ou colas.</td>
+            </tr>
+            <tr>
+              <td><strong>Registrar ocorrências</strong></td>
+              <td>Anotar irregularidades e reportar aos <strong>pontos focais da URE</strong>.</td>
+            </tr>
+            <tr>
+              <td><strong>Controlar o tempo</strong></td>
+              <td>Avisar os candidatos sobre o tempo restante, conforme instruções.</td>
+            </tr>
+            <tr>
+              <td><strong>Posicionamento</strong></td>
+              <td>Posicionar-se no <strong>fundo da sala</strong> observando os estudantes.</td>
+            </tr>
+            <tr>
+              <td><strong>Organização da Sala</strong></td>
+              <td>Organizar a sala para ter visão dos <strong>monitores</strong> dos estudantes.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </section>
 
-    <!-- ====== 5. PROBLEMAS TÉCNICOS ====== -->
-    <section id="tab-tecnico" class="tab-section">
-      <div class="card">
-        <div class="card-header red">
-          🛠 Resolução de problemas técnicos
-          <span class="badge">Protocolos</span>
-        </div>
+      <div class="warn-box">
+        <strong>O estudante que desrespeitar as regras</strong> deverá ser alertado e, em última instância, convidado a se retirar e <strong>não finalizar a prova</strong>. Deverá ser <strong>desclassificado</strong> via Diário de Classe (apontar ausência).
+      </div>
+      <div class="info-box">
+        <strong>Aumentar o tempo de prova</strong> caso haja qualquer imprevisto (queda de energia ou internet, por exemplo).
+      </div>
 
-        <h3 style="font-size:1rem; margin-bottom:0.5rem;">🔌 Escola sem conexão à internet / energia na hora da aplicação:</h3>
-        <ol style="padding-left:1.5rem; font-size:0.95rem; line-height:1.8;">
-          <li>Verificar a disponibilidade de <strong>tablets com chip</strong> na escola, na URE ou escola vizinha;</li>
-          <li>Em último caso, os <strong>celulares podem ser usados emergencialmente</strong>.
-            <div class="danger-box" style="margin:0.3rem 0 0.5rem; font-size:0.8rem;">
-              ⚠️ ATENÇÃO: O USO DO CELULAR É EXPRESSAMENTE PROIBIDO, <strong>SALVO ESSA EXCEÇÃO</strong>.
-            </div>
+      <p class="section-eyebrow" style="margin-top:1.4rem;">Boas práticas na aplicação</p>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th style="width:30%;">Boa Prática</th><th>Descrição</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Inclusão</strong></td>
+              <td>Permitir que estudantes elegíveis à educação especial sejam assistidos e tenham, se necessário, <strong>tempo estendido</strong>.</td>
+            </tr>
+            <tr>
+              <td><strong>Orientações pertinentes</strong></td>
+              <td>Orientar os estudantes a <strong>"Salvar Rascunho"</strong> para evitar perda de dados.</td>
+            </tr>
+            <tr>
+              <td><strong>Conferir finalização</strong></td>
+              <td>Verificar se cada estudante apertou <strong>"Finalizar Prova"</strong>.</td>
+            </tr>
+            <tr>
+              <td><strong>Movimentação</strong></td>
+              <td>Circular de forma <strong>recorrente</strong> entre os alunos.</td>
+            </tr>
+            <tr>
+              <td><strong>Checagem de navegador</strong></td>
+              <td>Conferir se os estudantes estão apenas com a <strong>aba de aplicação</strong> aberta.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:#f1f5f9; border-radius:var(--radius-md); padding:1.2rem; margin-top:1.2rem;">
+        <p style="font-family:var(--font-display); font-weight:700; color:var(--navy); margin-bottom:0.6rem;">Verificações de login:</p>
+        <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:8px;">
+          <li style="background:white; padding:10px 16px; border-radius:var(--radius-sm); border:1px solid var(--border-light); font-size:0.88rem;">
+            Verifique se está tudo certo com o <strong>login</strong> — é recorrente erro de digitação.
           </li>
-          <li>Verificar a possibilidade de <strong>deslocar os estudantes para uma escola vizinha</strong>.</li>
-        </ol>
-
-        <hr style="margin:1.5rem 0; border:1px dashed #e2e8f0;" />
-
-        <h3 style="font-size:1rem; margin-bottom:0.5rem;">🚫 Protocolo para identificação de cola por estudante:</h3>
-        <ul style="padding-left:1.5rem; font-size:0.95rem; line-height:1.8;">
-          <li>Os estudantes que burlaram a aplicação devem ser <strong>informados no momento</strong> em que o fiscal percebeu a tentativa de cola e devem ser <strong>desclassificados</strong> caso seja confirmado o ato.</li>
-          <li>Para desclassificar, basta <strong>marcar ausência</strong> para ele no Diário de Classe e informar o <strong>ponto focal de Olimpíadas</strong> da Unidade Regional de Ensino.</li>
+          <li style="background:white; padding:10px 16px; border-radius:var(--radius-sm); border:1px solid var(--border-light); font-size:0.88rem;">
+            Verifique se a <strong>data e hora do computador</strong> estão atualizadas. Para esses casos, sugerimos <strong>trocar o computador</strong>.
+          </li>
+          <li style="background:white; padding:10px 16px; border-radius:var(--radius-sm); border:1px solid var(--border-light); font-size:0.88rem;">
+            Se o problema persistir, <strong>esvazie o cache</strong> (<kbd>Ctrl + Shift + Delete</kbd>) ou use <strong>guia anônima</strong>.
+          </li>
         </ul>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ====== 6. DIÁRIO DE CLASSE E ENTURMAÇÃO ====== -->
-    <section id="tab-diario" class="tab-section">
-      <div class="card">
-        <div class="card-header">
-          📚 Diário de Classe e Enturmação
-          <span class="badge">SED</span>
-        </div>
-
-        <p style="font-weight:600; color:#0a2f6c; margin-bottom:0.8rem;">Etapas realizadas pela SED:</p>
-        <div style="background:#f1f5f9; border-radius:20px; padding:1rem; text-align:center; font-size:1rem; font-weight:700; color:#0a2f6c; letter-spacing:0.5px;">
-          Início → Diário de Classe → Olimpíadas → Enturmação e Frequência
-        </div>
-        <p style="margin:0.8rem 0 0.2rem; font-size:0.9rem;">Dentro da SED, siga o caminho acima até identificar o campo <strong>“Enturmação e Frequência”</strong>.</p>
-
-        <div class="info-box" style="margin:1rem 0;">
-          <strong>🎥 Vídeo Orientador:</strong> (Disponível no link abaixo) <br />
-          <a class="ext-link" href="https://docs.google.com/file/d/17KUhCY_b6TP5jK84t_DCgCl3Fh2PO3CT/preview" target="_blank" rel="noopener">
-            Vídeo Orientador
-          </a>
-          <span style="display:block; font-size:0.8rem; color:#475569; margin-top:4px;">Se necessário, altere a qualidade de imagem para 720p.</span>
-        </div>
-
-        <h3 style="font-size:1rem; margin:1.2rem 0 0.8rem;">📌 O que é necessário saber sobre a enturmação?</h3>
-        <ul style="padding-left:1.5rem; font-size:0.95rem; line-height:1.8;">
-          <li>O <strong>Token será gerado por URE</strong> e não por Município ou Escola;</li>
-          <li>É necessário selecionar a opção <strong>“Fase 3”</strong> para ver a enturmação;</li>
-          <li>Em cada turma disponível, estará atrelado uma <strong>lista única de estudantes</strong> que irão usar o mesmo token (Ex: Se houver 3 turmas disponíveis em uma URE, serão 3 tokens diferentes);</li>
-          <li>Confira o <strong>“nome”</strong> de cada turma para garantir que está sendo observado qual o <strong>nível atribuído</strong>.</li>
-        </ul>
+  <!-- ========== 6. PROBLEMAS TÉCNICOS ========== -->
+  <section id="tab-tecnico" class="tab-section">
+    <div class="card">
+      <div class="card-header red">
+        Resolução de Problemas Técnicos
+        <span class="badge">Protocolos</span>
       </div>
-    </section>
 
-    <!-- ====== 7. ALUNOS TRANSFERIDOS E TOKEN ====== -->
-    <section id="tab-transferidos" class="tab-section">
-      <div class="card">
-        <div class="card-header red">
-          🔄 Alunos transferidos e Token
-          <span class="badge">Procedimento</span>
-        </div>
+      <p class="section-eyebrow">Sem internet ou energia</p>
+      <h3 style="font-size:1rem; margin-bottom:0.6rem;">Escola sem conexão na hora da aplicação:</h3>
+      <ol style="padding-left:1.5rem; font-size:0.95rem; line-height:1.9;">
+        <li>Verificar a disponibilidade de <strong>tablets com chip</strong> na escola, na URE ou escola vizinha.</li>
+        <li>Em último caso, os <strong>celulares podem ser usados emergencialmente</strong>.
+          <div class="danger-box" style="margin:0.4rem 0 0.6rem; font-size:0.82rem;">
+            ATENÇÃO: O USO DO CELULAR É EXPRESSAMENTE PROIBIDO, <strong>SALVO ESSA EXCEÇÃO</strong>.
+          </div>
+        </li>
+        <li>Verificar a possibilidade de <strong>deslocar os estudantes para uma escola vizinha</strong>.</li>
+      </ol>
 
-        <div class="warn-box">
-          <strong>❓ Se um estudante veio transferido de outra escola para realizar a avaliação na minha turma, o que devo fazer?</strong>
-        </div>
+      <hr class="sep" />
 
-        <p style="font-size:0.95rem; line-height:1.6; margin:0.5rem 0;">
-          A OMASP fará uso de <strong>token de aplicação</strong>. Portanto, se na sua escola há algum estudante novato e apto para realizar a prova, mas a classificação e enturmação já foi feita na escola de origem, é necessário:
+      <p class="section-eyebrow">Identificação de cola</p>
+      <h3 style="font-size:1rem; margin-bottom:0.6rem;">Protocolo para cola por estudante:</h3>
+      <ul style="padding-left:1.5rem; font-size:0.95rem; line-height:1.9;">
+        <li>Os estudantes que burlaram a aplicação devem ser <strong>informados no momento</strong> em que o fiscal percebeu e devem ser <strong>desclassificados</strong> caso confirmado.</li>
+        <li>Para desclassificar, <strong>marcar ausência</strong> no Diário de Classe e informar o <strong>ponto focal de Olimpíadas</strong> da URE.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== 7. DIÁRIO DE CLASSE ========== -->
+  <section id="tab-diario" class="tab-section">
+    <div class="card">
+      <div class="card-header">
+        Diário de Classe e Enturmação
+        <span class="badge navy-badge">SED</span>
+      </div>
+
+      <p style="font-family:var(--font-display); font-weight:700; color:var(--navy); margin-bottom:0.8rem;">
+        Etapas realizadas pela SED:
+      </p>
+      <div class="flow-bar">
+        Início → Diário de Classe → Olimpíadas → Enturmação e Frequência
+      </div>
+      <p style="margin:0.8rem 0; font-size:0.92rem;">
+        Dentro da SED, siga o caminho acima até identificar o campo <strong>"Enturmação e Frequência"</strong>.
+      </p>
+
+      <div class="info-box">
+        <strong>Enturmação e Frequência:</strong><br />
+        <a class="ext-link" href="https://docs.google.com/file/d/17KUhCY_b6TP5jK84t_DCgCl3Fh2PO3CT/preview" target="_blank" rel="noopener">
+          Assistir ao vídeo orientador
+        </a>
+        <span style="display:block; font-size:0.82rem; color:var(--text-muted); margin-top:4px;">
+          .
+        </span>
+      </div>
+
+      <p class="section-eyebrow" style="margin-top:1.4rem;">Enturmação</p>
+      <h3 style="font-size:1rem; margin-bottom:0.6rem;">O que é necessário saber?</h3>
+      <ul style="padding-left:1.5rem; font-size:0.95rem; line-height:1.9;">
+        <li>O <strong>Token será gerado por URE</strong> e não por Município ou Escola.</li>
+        <li>Selecione a opção <strong>"Fase 3"</strong> para ver a enturmação.</li>
+        <li>Em cada turma, estará atrelada uma <strong>lista única de estudantes</strong> que usarão o mesmo token (ex: 3 turmas = 3 tokens diferentes).</li>
+        <li>Confira o <strong>"nome"</strong> de cada turma para garantir o <strong>nível atribuído</strong>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== 8. TRANSFERIDOS & TOKEN ========== -->
+  <section id="tab-transferidos" class="tab-section">
+    <div class="card">
+      <div class="card-header red">
+        Alunos Transferidos e Token
+        <span class="badge">Procedimento</span>
+      </div>
+
+      <div class="warn-box">
+        <strong>Pergunta:</strong> Se um estudante veio transferido de outra escola para realizar a avaliação na minha turma, o que devo fazer?
+      </div>
+
+      <p style="font-size:0.98rem; line-height:1.7; margin:0.6rem 0;">
+        A OMASP fará uso de <strong>token de aplicação</strong>. Se na sua escola há algum estudante novato e apto, mas a classificação e enturmação já foi feita na escola de origem:
+      </p>
+      <ol style="padding-left:1.5rem; font-size:0.95rem; line-height:1.9;">
+        <li><strong>Comunicar a escola antiga</strong> para que o trio gestor, Proati ou professor informe, no momento da prova, qual é o <strong>token de acesso</strong>.</li>
+        <li><strong>Caso contrário</strong>, o estudante não conseguirá abrir a prova na Sala do Futuro.</li>
+      </ol>
+
+      <div class="danger-box" style="margin-top:1rem;">
+        <strong>Nota Importante:</strong> O estudante só poderá realizar a prova na <strong>data e turno programado</strong> — esse contato deve ser feito da forma <strong>mais rápida possível</strong>.
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 9. GERAR TOKEN EM LOTE ========== -->
+  <section id="tab-token" class="tab-section">
+    <div class="card">
+      <div class="card-header">
+        Gerar Token em Lote
+        <span class="badge navy-badge">URE</span>
+      </div>
+
+      <ul style="padding-left:1.5rem; font-size:0.95rem; line-height:1.9;">
+        <li>Na <strong>Fase 3</strong>, o token será gerado <strong>em lote pelas UREs</strong>.</li>
+        <li>A URE deverá gerar um <strong>mesmo token de aplicação</strong> para todas as turmas.</li>
+        <li>O token tem duração de <strong>15 minutos</strong>. Se um estudante chegar atrasado, um <strong>novo token</strong> deverá ser gerado se o primeiro já tiver expirado.</li>
+        <li><strong>Atenção:</strong> siga as instruções para que o token esteja visível para todos e evite que várias pessoas o gerem.</li>
+      </ul>
+
+      <div style="background:#f1f5f9; border-radius:var(--radius-md); padding:1.3rem; margin:1.2rem 0;">
+        <p style="font-family:var(--font-display); font-weight:700; color:var(--navy); margin-bottom:0.6rem;">
+          Confira o tutorial de geração de token:
         </p>
-        <ol style="padding-left:1.5rem; font-size:0.95rem; line-height:1.8;">
-          <li><strong>Comunicar com a escola antiga</strong> a fim de que o trio gestor, Proati ou algum professor diga, no momento da prova, qual é o <strong>token de acesso</strong>;</li>
-          <li><strong>Caso contrário</strong>, o estudante não conseguirá abrir a prova na Sala do Futuro.</li>
-        </ol>
-
-        <div class="danger-box" style="margin-top:1rem;">
-          <strong>📌 Nota Importante:</strong> Lembre-se de que o estudante só poderá realizar a prova na <strong>data e turno programado</strong>, portanto, esse contato deve ser feito da forma <strong>mais rápida possível</strong>.
-        </div>
-      </div>
-    </section>
-
-    <!-- ====== 8. GERAR TOKEN EM LOTE ====== -->
-    <section id="tab-token" class="tab-section">
-      <div class="card">
-        <div class="card-header">
-          🔑 Orientações de como gerar Token em lote
-          <span class="badge">URE</span>
-        </div>
-
-        <ul style="padding-left:1.5rem; font-size:0.95rem; line-height:1.8;">
-          <li>Na <strong>Fase 3</strong>, o token será gerado <strong>em lote pelas UREs</strong>.</li>
-          <li>Isso significa que a URE deverá gerar um <strong>mesmo token de aplicação</strong> para todas as turmas.</li>
-          <li>O token tem a duração de <strong>15 minutos</strong>. Se um estudante chegar atrasado, um <strong>novo token</strong> deverá ser gerado se o primeiro já tiver expirado.</li>
-          <li><strong>Atenção:</strong> siga as instruções para que o token esteja visível para todos e para evitar que várias pessoas gerem esse token.</li>
-        </ul>
-
-        <div style="background:#f1f5f9; border-radius:20px; padding:1.2rem; margin:1.2rem 0;">
-          <p style="font-weight:700; color:#0a2f6c;">📎 Confira em “Como gerar um Token em lote”:</p>
-          <a class="btn-link" href="https://docs.google.com/presentation/d/1w39Cr_TPbeVRK3nb5z8uKiKYeaGMRezo/edit?usp=sharing&ouid=101532812359216929017&rtpof=true&sd=true" target="_blank" rel="noopener">
-            🔗 Acessar apresentação
-          </a>
-          <p style="font-size:0.75rem; color:#475569; margin-top:4px; word-break:break-all;">
-          
-          </p>
-        </div>
-
-        <div style="background:#f8fafc; border-radius:20px; padding:1rem; border:1px solid #e2e8f0; margin:1rem 0;">
-          <p style="font-weight:600; color:#0a2f6c;">📱 Na Sala do Futuro:</p>
-          <p style="font-size:0.9rem; line-height:1.6;">
-            Você pode acessar a geração de token pelo <strong>ícone no menu principal</strong> e também pelo <strong>menu lateral</strong>.
-            Na tela do <strong>Token de Atividades</strong>, você deverá escolher a turma onde a prova será aplicada.
-          </p>
-        </div>
-
-        <div class="info-box">
-          <strong>💡 Agora é possível gerar o token em lote</strong> – basta selecionar essa opção no quadrante <strong>Tokens</strong>.
-        </div>
-
-        <div style="background:#eef2ff; border-radius:20px; padding:1rem; margin-top:1rem; text-align:center; border:2px dashed #0a2f6c;">
-          <p style="font-weight:800; color:#0a2f6c; font-size:1.2rem;">✅ AGORA VOCÊ ESTÁ PRONTO PARA REALIZAR A MELHOR APLICAÇÃO DA OMASP POSSÍVEL</p>
-        </div>
+        <a class="btn-link" href="https://docs.google.com/presentation/d/1w39Cr_TPbeVRK3nb5z8uKiKYeaGMRezo/edit?usp=sharing&ouid=101532812359216929017&rtpof=true&sd=true" target="_blank" rel="noopener">
+          Acessar apresentação
+        </a>
       </div>
 
-      <!-- checklist interativo -->
-      <div class="card">
-        <div class="card-header" style="border-left-color:#16a34a;">
-          ✅ Checklist do Fiscal / Gestor
-          <span class="badge" style="background:#16a34a;">Interativo</span>
-        </div>
-
-        <div class="checklist-wrap" id="checklistContainer">
-          <div class="chk-item" data-idx="0">
-            <span class="chk-box">✓</span>
-            <span>Conhecer o cronograma e horário da Fase 3 (06/08, 9h)</span>
-          </div>
-          <div class="chk-item" data-idx="1">
-            <span class="chk-box">✓</span>
-            <span>Verificar local do polo de aplicação e divulgar endereço</span>
-          </div>
-          <div class="chk-item" data-idx="2">
-            <span class="chk-box">✓</span>
-            <span>Garantir que fiscais estejam presentes e preparados</span>
-          </div>
-          <div class="chk-item" data-idx="3">
-            <span class="chk-box">✓</span>
-            <span>Orientar alunos sobre regras e dispositivos eletrônicos</span>
-          </div>
-          <div class="chk-item" data-idx="4">
-            <span class="chk-box">✓</span>
-            <span>Verificar login, data/hora do computador e navegador</span>
-          </div>
-          <div class="chk-item" data-idx="5">
-            <span class="chk-box">✓</span>
-            <span>Instruir alunos a “Salvar Rascunho” e “Finalizar Prova”</span>
-          </div>
-          <div class="chk-item" data-idx="6">
-            <span class="chk-box">✓</span>
-            <span>Saber como gerar token em lote (URE) e duração de 15 min</span>
-          </div>
-          <div class="chk-item" data-idx="7">
-            <span class="chk-box">✓</span>
-            <span>Protocolo para alunos transferidos – contatar escola de origem</span>
-          </div>
-          <div class="chk-item" data-idx="8">
-            <span class="chk-box">✓</span>
-            <span>Saber como registrar ocorrências e desclassificar (Diário de Classe)</span>
-          </div>
-          <div class="chk-item" data-idx="9">
-            <span class="chk-box">✓</span>
-            <span>Ter plano para queda de internet/energia (tablets, celular emergencial, escola vizinha)</span>
-          </div>
-        </div>
-
-        <div class="chk-stats">
-          <span>Progresso: <span id="chkCount">0</span> / 10</span>
-          <span id="chkPercent">0%</span>
-        </div>
-        <div class="chk-progress-bar">
-          <div class="chk-progress-fill" id="chkProgressFill" style="width:0%;"></div>
-        </div>
-        <button style="margin-top:12px; background:#0a2f6c; color:white; border:none; padding:6px 20px; border-radius:40px; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif;" onclick="resetChecklist()">🔄 Redefinir checklist</button>
+      <div style="background:var(--surface-light); border-radius:var(--radius-md); padding:1.2rem; border:1px solid var(--border-light); margin:1rem 0;">
+        <p style="font-family:var(--font-display); font-weight:700; color:var(--navy); margin-bottom:0.4rem;">Na Sala do Futuro:</p>
+        <p style="font-size:0.92rem; line-height:1.7;">
+          Acesse a geração de token pelo <strong>ícone no menu principal</strong> e também pelo <strong>menu lateral</strong>.
+          Na tela do <strong>Token de Atividades</strong>, escolha a turma onde a prova será aplicada.
+        </p>
       </div>
-      <div class="info-box" style="margin:1rem 0;">
-          <strong>🎓 Treinamento </strong> (Disponível no link abaixo) <br />
-          <a class="ext-link" href="index1.html" target="_blank" rel="noopener">
-            Vamos treinar para a aplicação da Fase 3!
-          </a>
-          <span style="display:block; font-size:0.8rem; color:#475569; margin-top:4px;"></span>
+
+      <div class="info-box">
+        <strong>Agora é possível gerar o token em lote</strong> — basta selecionar essa opção no quadrante <strong>Tokens</strong>.
+      </div>
+
+      <div class="finish-banner" style="margin-top:1.2rem;">
+        <p>AGORA VOCÊ ESTÁ PRONTO PARA REALIZAR A MELHOR APLICAÇÃO DA OMASP POSSÍVEL</p>
+      </div>
+    </div>
+
+    <!-- Checklist interativo -->
+    <div class="card">
+      <div class="card-header green">
+        Checklist do Fiscal / Gestor
+        <span class="badge green-badge">Interativo</span>
+      </div>
+
+      <div class="checklist-wrap" id="checklistContainer">
+        <div class="chk-item" data-idx="0">
+          <span class="chk-box">&#10003;</span>
+          <span class="chk-text">Conhecer o cronograma e horário da Fase 3 (06/08, 9h)</span>
         </div>
-    </section>
+        <div class="chk-item" data-idx="1">
+          <span class="chk-box">&#10003;</span>
+          <span class="chk-text">Verificar local do polo de aplicação e divulgar endereço</span>
+        </div>
+        <div class="chk-item" data-idx="2">
+          <span class="chk-box">&#10003;</span>
+          <span class="chk-text">Garantir que fiscais estejam presentes e preparados</span>
+        </div>
+        <div class="chk-item" data-idx="3">
+          <span class="chk-box">&#10003;</span>
+          <span class="chk-text">Orientar alunos sobre regras e dispositivos eletrônicos</span>
+        </div>
+        <div class="chk-item" data-idx="4">
+          <span class="chk-box">&#10003;</span>
+          <span class="chk-text">Verificar login, data/hora do computador e navegador</span>
+        </div>
+        <div class="chk-item" data-idx="5">
+          <span class="chk-box">&#10003;</span>
+          <span class="chk-text">Instruir alunos a "Salvar Rascunho" e "Finalizar Prova"</span>
+        </div>
+        <div class="chk-item" data-idx="6">
+          <span class="chk-box">&#10003;</span>
+          <span class="chk-text">Saber como gerar token em lote (URE) e duração de 15 min</span>
+        </div>
+        <div class="chk-item" data-idx="7">
+          <span class="chk-box">&#10003;</span>
+          <span class="chk-text">Protocolo para alunos transferidos — contatar escola de origem</span>
+        </div>
+        <div class="chk-item" data-idx="8">
+          <span class="chk-box">&#10003;</span>
+          <span class="chk-text">Saber como registrar ocorrências e desclassificar (Diário de Classe)</span>
+        </div>
+        <div class="chk-item" data-idx="9">
+          <span class="chk-box">&#10003;</span>
+          <span class="chk-text">Ter plano para queda de internet/energia (tablets, celular emergencial, escola vizinha)</span>
+        </div>
+      </div>
 
-    <!-- ========== FOOTER ========== -->
-    <footer>
-      <p style="font-weight:600; color:#ffec9e;">Olimpíada de Matemática · OMASP 2026</p>
-      <p>Programa de Olimpíadas Educacionais · SEDUC-SP</p>
-      <p style="margin-top:6px; opacity:0.7;">Guia de Aplicação de Prova – Fase 3 </p>
-      <p style="margin-top:4px; font-size:0.65rem; opacity:0.5;"></p>
-    </footer>
+      <div class="chk-stats">
+        <span>Progresso: <strong id="chkCount">0</strong> / 10</span>
+        <span id="chkPercent">0%</span>
+      </div>
+      <div class="chk-progress-bar">
+        <div class="chk-progress-fill" id="chkProgressFill"></div>
+      </div>
+      <button class="btn-link" style="margin-top:14px; font-size:0.78rem;" onclick="resetChecklist()">
+        Redefinir checklist
+      </button>
+    </div>
 
+    <div class="info-box">
+      <strong>Treinamento:</strong>
+      <a class="ext-link" href="index1.html" target="_blank" rel="noopener">
+        Vamos treinar para a aplicação da Fase 3!
+      </a>
+    </div>
+  </section>
+    <!-- ========== 7.1 DIÁRIO DE CLASSE - TREINAMENTO OMASP (3ª FASE) ========== -->
+<section id="tab-diario1" class="tab-section">
+  <div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+      <span>
+        <strong>Treinamento:</strong> QUIZ E DUVIDAS.
+      </span>
+      <div>
+                <span class="badge" style="background-color: var(--navy, #0d6efd); color: #fff; font-weight: bold; margin-left: 4px;">
+          OMASP - 3ª FASE
+        </span>
+      </div>
+    </div>
+
+    <!-- Chamada Principal do Treinamento -->
+    <div class="training-banner" style="background: rgba(13, 110, 253, 0.08); border-left: 4px solid var(--navy, #0d6efd); padding: 1rem; border-radius: 4px; margin-bottom: 1.2rem;">
+      <h4 style="margin: 0 0 0.4rem 0; font-size: 1.05rem; color: var(--navy, #0d6efd);">
+        🎯 Treinamento Orientativo: OMASP (3ª Fase)
+      </h4>
+      <p style="margin: 0; font-size: 0.92rem; line-height: 1.5;">      </p>
+    </div>
+    <!-- Caixa de Vídeo do Treinamento -->
+    <div class="info-box" style="border: 1px solid rgba(0,0,0,0.12); padding: 1rem; border-radius: 6px; margin: 1.2rem 0;">
+      <strong style="display: block; font-size: 1rem; margin-bottom: 0.4rem;">
+       🕹️ Treinamento e Orientação
+      </strong>
+      <p style="font-size: 0.88rem; margin-bottom: 0.8rem; color: var(--text-muted, #6c757d);">
+        15 minutos para retomar e responder:
+      </p>
+      <a class="ext-link btn-training" href="index1.html" target="_blank" rel="noopener" style="display: inline-block; font-weight: bold; text-decoration: underline;">
+        ▶ Acessar treinamento (OMASP - 3ª Fase)
+      </a>
+    </div>
   </div>
+</section>
 
-  <!-- ========== BOTÃO DE IMPRESSÃO ========== -->
-  <button class="print-btn" onclick="window.print()">
-    🖨️ Imprimir Guia
-  </button>
+  <!-- ========== 10. DOCUMENTOS (NOVA) ========== -->
+  <section id="tab-documentos" class="tab-section">
+    <div class="card">
+      <div class="card-header">
+        Central de Documentos
+        <span class="badge navy-badge">Referência</span>
+      </div>
+      <p style="font-size:1rem; line-height:1.7; margin-bottom:0.8rem;">
+        Todos os materiais oficiais, guias, apresentações e recursos de divulgação da OMASP 2026 reunidos em um só lugar.
+      </p>
 
-  <script>
-    // ========== NAVEGAÇÃO POR ABAS ==========
-    const navLinks = document.querySelectorAll('#mainNav a');
-    const sections = {
-      'tab-objetivo': document.getElementById('tab-objetivo'),
-      'tab-recapitulando': document.getElementById('tab-recapitulando'),
-      'tab-preparacao': document.getElementById('tab-preparacao'),
-      'tab-fiscais': document.getElementById('tab-fiscais'),
-      'tab-tecnico': document.getElementById('tab-tecnico'),
-      'tab-diario': document.getElementById('tab-diario'),
-      'tab-transferidos': document.getElementById('tab-transferidos'),
-      'tab-token': document.getElementById('tab-token'),
-    };
+      <div class="doc-grid">
+        <!-- Doc 1 -->
+        <div class="doc-card">
+          <div class="doc-type">PDF · Guia Oficial</div>
+          <div class="doc-icon">&#128213;</div>
+          <h3>Guia Oficial — Fase 3</h3>
+          <p>Documento completo com todas as orientações para a aplicação da Fase 3 da OMASP 2026.</p>
+          <a class="btn-link" href="https://drive.google.com/file/d/1IRL1DtKKVXYgh7p1-lWXcfOk8BTT87Uo/view?usp=drive_link" target="_blank" rel="noopener">
+            Acessar documento
+          </a>
+        </div>
 
-    navLinks.forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const tabId = this.dataset.tab;
-        // remove active de todos
-        navLinks.forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-        // esconde todas as seções
-        Object.values(sections).forEach(sec => sec.classList.remove('active'));
-        // mostra a seção alvo
-        if (sections[tabId]) {
-          sections[tabId].classList.add('active');
-        }
-        // rolagem suave para o topo
-        document.querySelector('.main-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        <!-- Doc 1.1 -->
+        <div class="doc-card">
+          <div class="doc-type">PDF · AUTORIZAÇÃO</div>
+          <div class="doc-icon">&#128213;</div>
+          <h3>AUTORIZAÇÃO DOS RESPONSÁVEIS</h3>
+          <p>Documento completo AUTORIZAÇÃO DOS RESPONSÁVEIS PARA DESLOCAMENTO DO ESTUDANTES.</p>
+          <a class="btn-link" href="https://drive.google.com/file/d/1MGPmhwWgCXbYUMrrIGK0SUBL-Y9AG-XV/view?usp=drive_link" target="_blank" rel="noopener">
+            Acessar documento
+          </a>
+        </div>
+        <!-- Doc 1.2 -->
+        <div class="doc-card">
+          <div class="doc-type">PDF · DECLARAÇÃO</div>
+          <div class="doc-icon">&#128213;</div>
+          <h3>DECLARAÇÃO DE COMPARECIMENTO </h3>
+          <p>Documento completo DECLARAÇÃO DE COMPARECIMENTO DO ESTUDANTE .</p>
+          <a class="btn-link" href="https://drive.google.com/file/d/1KSnL3BMFB3QjzTQKMYaf2yFKC_agXSFz/view?usp=drive_link" target="_blank" rel="noopener">
+            Acessar documento
+          </a>
+        </div>
+
+        <!-- Doc 1.3 -->
+        <div class="doc-card">
+          <div class="doc-type">PDF · TESTE LISTA DE PRESENÇA</div>
+          <div class="doc-icon">&#128213;</div>
+          <h3>LISTA DE PRESENÇA - TESTE </h3>
+          <p>Lista teste para vocês praticarem com o aplicativo.</p>
+          <a class="btn-link" href="https://drive.google.com/file/d/1KSnL3BMFB3QjzTQKMYaf2yFKC_agXSFz/view?usp=drive_link" target="_blank" rel="noopener">
+            Acessar documento
+          </a>
+        </div>
+
+        <!-- Doc 2 -->
+        <div class="doc-card">
+          <div class="doc-type">Imagem · Divulgação</div>
+          <div class="doc-icon">&#128226;</div>
+          <h3>Post Polos — Divulgação</h3>
+          <p>Imagem para divulgação dos polos olímpicos nas redes sociais e comunicação escolar.</p>
+          <a class="btn-link" href="https://drive.google.com/file/d/1ix7HRDcZTLNsy6JsKW7mi9MeHT3LpzAc/view?usp=drive_link" target="_blank" rel="noopener">
+            Visualizar / Baixar
+          </a>
+        </div>
+
+        <!-- Doc 3 -->
+        <div class="doc-card">
+          <div class="doc-type">Imagem · Banner</div>
+          <div class="doc-icon">&#127912;</div>
+          <h3>Banner para Escolas</h3>
+          <p>Banner de divulgação para impressão ou exibição digital nos murais das escolas.</p>
+          <a class="btn-link" href="https://drive.google.com/file/d/1S9yNUzGRG9tqmKQBKjEyOEUCVZwmVrEi/view?usp=drive_link" target="_blank" rel="noopener">
+            Visualizar / Baixar
+          </a>
+        </div>
+
+        <!-- Doc 4 -->
+        <div class="doc-card">
+          <div class="doc-type">Apresentação · Google Slides</div>
+          <div class="doc-icon">&#128200;</div>
+          <h3>Token em Lote — Apresentação</h3>
+          <p>Apresentação com passo a passo detalhado sobre como gerar tokens em lote na Sala do Futuro.</p>
+          <a class="btn-link" href="https://docs.google.com/presentation/d/1w39Cr_TPbeVRK3nb5z8uKiKYeaGMRezo/edit?usp=sharing&ouid=101532812359216929017&rtpof=true&sd=true" target="_blank" rel="noopener">
+            Abrir apresentação
+          </a>
+        </div>
+
+        <!-- Doc 5 -->
+        <div class="doc-card">
+          <div class="doc-type">Vídeo · Orientação</div>
+          <div class="doc-icon">&#127909;</div>
+          <h3>Vídeo Orientador — Diário de Classe</h3>
+          <p>Vídeo com orientações sobre o preenchimento do Diário de Classe e enturmação na SED.</p>
+          <a class="btn-link" href="https://docs.google.com/file/d/17KUhCY_b6TP5jK84t_DCgCl3Fh2PO3CT/preview" target="_blank" rel="noopener">
+            Assistir vídeo
+          </a>
+        </div>
+
+        <!-- Doc 6 -->
+        <div class="doc-card">
+          <div class="doc-type">Planilha · Google Sheets</div>
+          <div class="doc-icon">&#128202;</div>
+          <h3>Planilha de Polos</h3>
+          <p>Planilha completa com os 13 polos olímpicos, endereços e informações de cada local de aplicação.</p>
+          <a class="btn-link" href="https://docs.google.com/spreadsheets/d/1lgSdfL5Jafxhx58Yru2sZtzQ9NjEM5ffsnRhenDA7B0/edit?usp=sharing" target="_blank" rel="noopener">
+            Abrir planilha
+          </a>
+        </div>
+
+        <!-- Doc 7 -->
+        <div class="doc-card">
+  <div class="doc-type">Cartão Resumos · Polos</div>
+  <div class="doc-icon">&#128221;</div>
+  <h3>Cartão Resumos</h3>
+  <p>Cartões resumos para organização e sistematização de polos.</p>
+
+  <!-- Lista com os 13 links para os Polos -->
+  <ul class="polo-list">
+    <li><a class="btn-link" href="https://drive.google.com/file/d/180enY254Lc90pzNKviNk4TWA5SR8sIXT/view?usp=drive_link" target="_blank" rel="noopener">PL - Profa. Lenita Corrêa Camargo : 01 Francisco Morato</a></li><br> 
+    <li><a class="btn-link" href="https://drive.google.com/file/d/167FSsMBZBxZIv1k7nbkQMCL7FqHF5Fgw/view?usp=drive_link" target="_blank" rel="noopener">PL - Prof. Bueno de Azevedo Filho : 02 Francisco Morato</a></li><br>
+    <li><a class="btn-link" href="https://drive.google.com/file/d/1xOVoHXBnw1tGW8wTykXtS3lco8cNq_Mt/view?usp=drive_link" target="_blank" rel="noopener">PL - Chácara Camponesa Jardim Vassouras : 03 Francisco Morato</a></li><br>
+    <li><a class="btn-link" href="https://drive.google.com/file/d/17gZH0HZZf1TJfuRJ7HyU63U3mHmYNK4F/view?usp=drive_link" target="_blank" rel="noopener">PL - Profa. Celestina Valente Lengenfelder : 04 Francisco Morato</a></li><br>
+    <li><a class="btn-link" href="https://drive.google.com/file/d/104A1s15ouljzlYRYX_JI0nd1gQ33Ya8T/view?usp=drive_link" target="_blank" rel="noopener">PL - Profa. Jocimara Vieira da Silva : 05 Franco da Rocha</a></li><br>
+    <li><a class="btn-link" href="https://drive.google.com/file/d/1pc4fIFeRaReA2KrvSPnPZEm0MlKCrDFz/view?usp=drive_link" target="_blank" rel="noopener">PL - Profa. Kátia Maria Tarifa Leme Tonelli : 06 Franco da Rocha</a></li><br>
+    <li><a class="btn-link" href="https://drive.google.com/file/d/1Mpg-O_z6lHwPXBm7VBvuMq6B-0E28rBL/view?usp=drive_link" target="_blank" rel="noopener">PL - Benedito Fagundes Marques : 07 Franco da Rocha</a></li><br>
+    <li><a class="btn-link" href="https://drive.google.com/file/d/1pX18a0aZ16ib79PWazbMuXHukU_11fTq/view?usp=drive_link" target="_blank" rel="noopener">PL - Alfried Theodor Weiszflog : 08 Caieiras</a></li><br>
+    <li><a class="btn-link" href="https://drive.google.com/file/d/1btx5z4LjqvP5Pz_NzNpNBN2F96DGc-cj/view?usp=drive_link" target="_blank" rel="noopener">PL - Dr. Mario Toledo de Moraes : 09 Caieiras</a></li><br>
+    <li><a class="btn-link" href="https://drive.google.com/file/d/12GXbF4yNfU9ECLWX1fpI95219zM-5KHU/view?usp=drive_link" target="_blank" rel="noopener">PL - Otto Weiszflog : 10 Caieiras</a></li><br>
+    <li><a class="btn-link" href="https://drive.google.com/file/d/1vTsRuFpPk3BgQNJa-nX-OnPFkXVsWRyn/view?usp=drive_link" target="_blank" rel="noopener">PL - Tte. Joaquim Marques da Silva Sobrinho : 11 Cajamar</a></li><br>
+    <li><a class="btn-link" href="https://drive.google.com/file/d/17WGjb0xEn1uJW1kNvpo50lZy4cI3E2Ma/view?usp=drive_link" target="_blank" rel="noopener">PL - Prof. Carlos Augusto de Padua Fleury : 12 Mairiporã</a></li><br>
+    <li><a class="btn-link" href="https://drive.google.com/file/d/1oNYSwmXwOrCGDufZ_LCEOgoV7cR8wdzs/view?usp=drive_link" target="_blank" rel="noopener">PL - José Roberto Melchior DR : 13 Mairiporã</a></li><br>
+  </ul>
+</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <p class="footer-brand">Olimpíada de Matemática · OMASP 2026</p>
+    <p>Programa de Olimpíadas Educacionais · SEDUC-SP</p>
+    <p style="margin-top:6px; opacity:0.7;">Guia de Aplicação de Prova — Fase 3</p>
+  </footer>
+
+</div>
+
+<!-- ========== BOTÃO DE IMPRESSÃO ========== -->
+<button class="print-btn" onclick="window.print()">
+  Imprimir Guia
+</button>
+
+<script>
+  // ========== NAVEGAÇÃO POR ABAS ==========
+  const navLinks = document.querySelectorAll('#mainNav a');
+  const allSections = document.querySelectorAll('.tab-section');
+
+  function switchTab(tabId) {
+    navLinks.forEach(l => l.classList.remove('active'));
+    allSections.forEach(s => s.classList.remove('active'));
+
+    const targetLink = document.querySelector(`[data-tab="${tabId}"]`);
+    const targetSection = document.getElementById(tabId);
+
+    if (targetLink) targetLink.classList.add('active');
+    if (targetSection) {
+      targetSection.classList.add('active');
+      // Stagger animations for cards inside
+      const cards = targetSection.querySelectorAll('.card, .doc-card, .polo-stat');
+      cards.forEach((card, i) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(16px)';
+        setTimeout(() => {
+          card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 60 * i);
       });
-    });
-
-    // ========== CHECKLIST INTERATIVO ==========
-    const chkItems = document.querySelectorAll('.chk-item');
-    let chkState = new Array(chkItems.length).fill(false);
-
-    function updateChecklist() {
-      let done = 0;
-      chkItems.forEach((item, idx) => {
-        const isDone = chkState[idx];
-        item.classList.toggle('done', isDone);
-        if (isDone) done++;
-      });
-      const total = chkItems.length;
-      const pct = Math.round((done / total) * 100);
-      document.getElementById('chkCount').textContent = done;
-      document.getElementById('chkPercent').textContent = pct + '%';
-      document.getElementById('chkProgressFill').style.width = pct + '%';
-      // salva no localStorage
-      try {
-        localStorage.setItem('omasp-checklist', JSON.stringify(chkState));
-      } catch (e) {}
     }
 
+    document.querySelector('.main-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      switchTab(this.dataset.tab);
+    });
+  });
+
+  // Initial animation for active tab
+  (function() {
+    const activeSection = document.querySelector('.tab-section.active');
+    if (activeSection) {
+      const cards = activeSection.querySelectorAll('.card, .doc-card, .polo-stat');
+      cards.forEach((card, i) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(16px)';
+        setTimeout(() => {
+          card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 200 + 80 * i);
+      });
+    }
+  })();
+
+  // ========== CHECKLIST INTERATIVO ==========
+  const chkItems = document.querySelectorAll('.chk-item');
+  const CHK_KEY = 'omasp-checklist-v2';
+  let chkState = new Array(chkItems.length).fill(false);
+
+  function updateChecklist() {
+    let done = 0;
     chkItems.forEach((item, idx) => {
-      item.addEventListener('click', function() {
-        chkState[idx] = !chkState[idx];
-        updateChecklist();
-      });
+      const isDone = chkState[idx];
+      item.classList.toggle('done', isDone);
+      if (isDone) done++;
     });
+    const total = chkItems.length;
+    const pct = Math.round((done / total) * 100);
+    document.getElementById('chkCount').textContent = done;
+    document.getElementById('chkPercent').textContent = pct + '%';
+    document.getElementById('chkProgressFill').style.width = pct + '%';
+    try { localStorage.setItem(CHK_KEY, JSON.stringify(chkState)); } catch(e) {}
+  }
 
-    // carregar do localStorage
-    try {
-      const saved = localStorage.getItem('omasp-checklist');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length === chkState.length) {
-          chkState = parsed;
-        }
-      }
-    } catch (e) {}
-    updateChecklist();
-
-    function resetChecklist() {
-      chkState = new Array(chkItems.length).fill(false);
+  chkItems.forEach((item, idx) => {
+    item.addEventListener('click', function() {
+      chkState[idx] = !chkState[idx];
       updateChecklist();
-      try {
-        localStorage.removeItem('omasp-checklist');
-      } catch (e) {}
+    });
+  });
+
+  // Carregar do localStorage
+  try {
+    const saved = localStorage.getItem(CHK_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length === chkState.length) {
+        chkState = parsed;
+      }
     }
+  } catch(e) {}
+  updateChecklist();
 
-    // ========== ATALHO DE TECLADO: ESC para limpar foco ==========
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        document.activeElement?.blur();
-      }
-    });
+  function resetChecklist() {
+    chkState = new Array(chkItems.length).fill(false);
+    updateChecklist();
+    try { localStorage.removeItem(CHK_KEY); } catch(e) {}
+  }
 
-    // ========== AJUSTE PARA LINKS EXTERNOS ==========
-    document.querySelectorAll('.ext-link, .btn-link').forEach(el => {
-      if (!el.hasAttribute('target')) {
-        el.setAttribute('target', '_blank');
-        el.setAttribute('rel', 'noopener');
-      }
-    });
-  </script>
+  // ========== ATALHO: ESC ==========
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') document.activeElement?.blur();
+  });
+
+  // ========== LINKS EXTERNOS ==========
+  document.querySelectorAll('.ext-link, .btn-link').forEach(el => {
+    if (!el.hasAttribute('target')) {
+      el.setAttribute('target', '_blank');
+      el.setAttribute('rel', 'noopener');
+    }
+  });
+</script>
 
 </body>
 </html>
